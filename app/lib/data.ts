@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -11,6 +12,8 @@ import {
 import { formatCurrency } from './utils';
 
 export async function fetchRevenue() {
+  noStore();
+
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -30,6 +33,8 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
+  noStore();
+
   try {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -50,8 +55,11 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchCardData() {
+  noStore();
+
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
     const res = await fetch(`${process.env.API_URL_SECONDARY}/cards`, {
     method: 'GET',
     headers: {
