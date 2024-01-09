@@ -18,9 +18,9 @@ export default async function InvoicesTable({
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {invoices?.map((invoice) => (
+            {invoices?.length ? invoices?.map((invoice, index) => (
               <div
-                key={invoice.id}
+                key={`${invoice.id}-${index}`}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
@@ -52,7 +52,7 @@ export default async function InvoicesTable({
                   </div>
                 </div>
               </div>
-            ))}
+            )) : <div><p>Data not found</p></div>}
           </div>
           <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
@@ -78,9 +78,9 @@ export default async function InvoicesTable({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {invoices?.map((invoice) => (
+              {invoices?.length ? invoices?.map((invoice, index) => (
                 <tr
-                  key={invoice.id}
+                  key={`${invoice.id}-${index}`}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
@@ -114,7 +114,7 @@ export default async function InvoicesTable({
                     </div>
                   </td>
                 </tr>
-              ))}
+              )) : <tr><td className="px-3 py-3">Data not found</td></tr>}
             </tbody>
           </table>
         </div>
