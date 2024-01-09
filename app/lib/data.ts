@@ -16,8 +16,6 @@ export async function fetchRevenue() {
   noStore();
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     const res = await fetch(`${process.env.API_URL_PRIMARY}/revenue`, {
     method: 'GET',
     headers: {
@@ -37,8 +35,6 @@ export async function fetchLatestInvoices() {
   noStore();
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
     const res = await fetch(`${process.env.API_URL_PRIMARY}/customers?limit=5&page=1`, {
     method: 'GET',
     headers: {
@@ -59,8 +55,6 @@ export async function fetchCardData() {
   noStore();
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
     const res = await fetch(`${process.env.API_URL_SECONDARY}/cards`, {
     method: 'GET',
     headers: {
@@ -133,27 +127,23 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
+  noStore();
+
   try {
-    const data = await sql<InvoiceForm>`
-      SELECT
-        invoices.id,
-        invoices.customer_id,
-        invoices.amount,
-        invoices.status
-      FROM invoices
-      WHERE invoices.id = ${id};
-    `;
-
-    const invoice = data.rows.map((invoice) => ({
-      ...invoice,
-      // Convert amount from cents to dollars
-      amount: invoice.amount / 100,
-    }));
-
-    return invoice[0];
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
+    const res = await fetch(`${process.env.API_URL_SECONDARY}/cards/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+ 
+  const data: InvoiceForm = await res.json();
+  data.amount = data.amount / 100;
+ 
+  return data;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all customers.');
   }
 }
 
@@ -194,7 +184,48 @@ export async function createInvoiceToDatabase(invoice: InvoicePayload) {
   return data;
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch all customers.');
+    throw new Error('Failed to create invoice.');
+  }
+}
+
+export async function updateInvoiceById(id: string, invoice: InvoicePayload) {
+  noStore();
+
+  try {
+    const res = await fetch(`${process.env.API_URL_SECONDARY}/cards/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(invoice)
+  })
+ 
+  const data: LatestInvoiceRaw = await res.json();
+ 
+  return data;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch invoice by id.');
+  }
+}
+
+export async function deleteInvoiceById(id: string) {
+  noStore();
+
+  try {
+    const res = await fetch(`${process.env.API_URL_SECONDARY}/cards/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+ 
+  const data: LatestInvoiceRaw = await res.json();
+ 
+  return data;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to delete invoice by id.');
   }
 }
 
