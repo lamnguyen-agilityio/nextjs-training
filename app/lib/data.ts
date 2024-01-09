@@ -137,10 +137,13 @@ export async function fetchInvoiceById(id: string) {
     },
   })
  
-  const data: InvoiceForm = await res.json();
-  data.amount = data.amount / 100;
- 
-  return data;
+  const data = await res.json();
+
+  if (data !== 'Not found') {
+    data.amount = data.amount / 100;
+  }
+
+  return data === 'Not found' ? undefined : data;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
