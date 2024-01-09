@@ -26,6 +26,16 @@ export type Invoice = {
   status: 'pending' | 'paid';
 };
 
+export type InvoicePayload = {
+  customer_id: string;
+  amount: number;
+  date: string;
+  status: 'pending' | 'paid';
+  name: string;
+  email: string;
+  image_url: string;
+};
+
 export type Revenue = {
   month: string;
   revenue: number;
