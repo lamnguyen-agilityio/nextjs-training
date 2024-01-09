@@ -8,6 +8,7 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  InvoicePayload,
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -157,17 +158,40 @@ export async function fetchInvoiceById(id: string) {
 }
 
 export async function fetchCustomers() {
-  try {
-    const data = await sql<CustomerField>`
-      SELECT
-        id,
-        name
-      FROM customers
-      ORDER BY name ASC
-    `;
+  noStore();
 
-    const customers = data.rows;
-    return customers;
+  try {
+    const res = await fetch(`${process.env.API_URL_PRIMARY}/customers`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+ 
+  const data: CustomerField[] = await res.json();
+ 
+  return data;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
+
+export async function createInvoiceToDatabase(invoice: InvoicePayload) {
+  noStore();
+
+  try {
+    const res = await fetch(`${process.env.API_URL_SECONDARY}/cards`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(invoice)
+  })
+ 
+  const data: LatestInvoiceRaw = await res.json();
+ 
+  return data;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
