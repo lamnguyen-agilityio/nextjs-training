@@ -1,5 +1,5 @@
-# TRAINING NEXT.JS
+## Next.js App Router Course - Starter
 
-## FOLLOW PLAN: [Here](https://docs.google.com/document/d/1ZwVPzTMQMvpzstWO9NnP2yd-5rTiZUjJA7H34zzQ9I0/edit?usp=sharing)
+This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
 
-_Timeline: 16 days_
+For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
