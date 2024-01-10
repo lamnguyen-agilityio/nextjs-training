@@ -107,6 +107,8 @@ export async function fetchFilteredInvoices(
 }
 
 export async function fetchInvoicesPages(query: string) {
+  noStore();
+
   try {
     const res = await fetch(`${process.env.API_URL_SECONDARY}/cards?search=${query}`, {
     method: 'GET',
