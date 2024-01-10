@@ -184,10 +184,11 @@ export async function createInvoiceToDatabase(invoice: InvoicePayload) {
  
   const data: LatestInvoiceRaw = await res.json();
  
-  return data;
+  return {...data, hasError: false};
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to create invoice.');
+
+    return { message: 'Database Error: Failed to create Invoice.', hasError: true };
   }
 }
 
@@ -202,13 +203,14 @@ export async function updateInvoiceById(id: string, invoice: InvoicePayload) {
     },
     body: JSON.stringify(invoice)
   })
- 
+
   const data: LatestInvoiceRaw = await res.json();
  
-  return data;
+  return {...data, hasError: false};
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch invoice by id.');
+
+    return { message: 'Database Error: Failed to update Invoice.', hasError: true };
   }
 }
 
