@@ -11,7 +11,7 @@ import { useFormState } from 'react-dom';
 
 import { CustomerField } from '@/app/lib/definitions';
 import { createInvoice } from '@/app/lib/actions';
-import { Button } from '@/app/ui/button';
+import { SubmitInvoice } from './buttons';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState = { message: null, errors: {} };
@@ -152,7 +152,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         >
           Cancel
         </Link>
-        <Button type="submit">Create Invoice</Button>
+        <SubmitInvoice>Create Invoice</SubmitInvoice>
       </div>
     </form>
   );

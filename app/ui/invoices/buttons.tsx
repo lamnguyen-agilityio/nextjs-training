@@ -1,7 +1,11 @@
+'use client';
+
+import { useFormStatus } from 'react-dom';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 import { deleteInvoice } from '@/app/lib/actions';
+import { Button } from '@/app/ui/button';
 
 export function CreateInvoice() {
   return (
@@ -36,5 +40,13 @@ export function DeleteInvoice({ id }: { id: string }) {
         <TrashIcon className="w-5" />
       </button>
     </form>
+  );
+}
+
+export function SubmitInvoice({ children }: { children: React.ReactNode }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" aria-disabled={pending}>{children}</Button>
   );
 }
