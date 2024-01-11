@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 
-import { Button } from '@/app/ui/button';
+import { SubmitInvoice } from './buttons';
 import { updateInvoice } from '@/app/lib/actions';
 
 export default function EditInvoiceForm({
@@ -162,7 +162,7 @@ export default function EditInvoiceForm({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Invoice</Button>
+        <SubmitInvoice>Edit Invoic</SubmitInvoice>
       </div>
     </form>
   );
