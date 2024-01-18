@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Button component */
+.btn--primary {
+  @apply bg-background fill-fill-text-light text-fill-text-light;
+}
+.btn--secondary {
+  @apply bg-active-primary fill-background text-background;
+}
+.btn--info {
+  @apply bg-background fill-fill-dark-link text-fill-dark-link;
+}
+.btn--success {
+  @apply bg-outline-info text-background;
+}
+.btn--small {
+  @apply w-8 h-8;
+}
+.btn--medium {
+  @apply w-10 h-10;
+}
+.btn--large {
+  @apply w-14 h-14;
+}
