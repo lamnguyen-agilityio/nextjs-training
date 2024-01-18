@@ -10,3 +10,4 @@ export * from './Profile';
 export * from './PurchaseCourse';
 export * from './Search';
 export * from './Setting';
+export * from './ArrowDown';
