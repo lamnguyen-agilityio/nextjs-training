@@ -11,12 +11,13 @@ const config: Config = {
   moduleNameMapper: {
     '.+\\.(png|jpg)$': 'identity-obj-proxy',
     '^@root(.*)$': '<rootDir>/app$1',
-    '^@/(.*)$': '<rootDir>/app/$1',
+    '^@/(.*)$': '<rootDir>/$1',
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
 
 export default config;

@@ -67,6 +67,7 @@ const config: Config = {
             main: '#4b5f6c',
             light: '#9ba1ac',
           },
+          link: '#17307a',
         },
         'fill-light': {
           primary: '#525ce5',
@@ -80,6 +81,7 @@ const config: Config = {
             main: '#a57180',
             light: '#b3bac5',
           },
+          link: '#273ab5',
         },
         active: {
           primary: '#2f3ced',
@@ -93,6 +95,7 @@ const config: Config = {
             main: '#3d4e59',
             light: '#848b96',
           },
+          link: '#f7f8f9',
         },
         outline: {
           primary: '#525ce5',
@@ -104,8 +107,9 @@ const config: Config = {
           text: {
             dark: '#0f1b41',
             main: '#5a7180',
-            light: '#b3bac5',
+            light: '#2e2e2e',
           },
+          link: '#58606a',
         },
         background: '#ffffff',
       },
