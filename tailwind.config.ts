@@ -50,7 +50,7 @@ const config: Config = {
           text: {
             dark: '#0f1b41',
             main: '#5a7180',
-            light: '#b3bac5',
+            light: '#cbd5de',
           },
           background: '#f5f7fd',
           link: '#a4adc8',
@@ -101,7 +101,7 @@ const config: Config = {
           primary: '#525ce5',
           secondary: '#ffc168',
           success: '#57d094',
-          info: '#22beed',
+          info: '#00c0cd',
           warning: '#ff5968',
           danger: '#ff6868',
           text: {
