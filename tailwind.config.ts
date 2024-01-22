@@ -38,6 +38,7 @@ const config: Config = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
     createThemes({
       light: {
         fill: {
