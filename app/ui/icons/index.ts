@@ -14,3 +14,5 @@ export * from './ArrowDown';
 export * from './CardView';
 export * from './Filter';
 export * from './ListView';
+export * from './Sort';
+export * from './Dots';
