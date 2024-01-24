@@ -24,3 +24,11 @@
 .btn--large {
   @apply w-14 h-14;
 }
+
+/* Checkbox component */
+.checkbox--base {
+  @apply form-checkbox cursor-pointer rounded-md h-5 w-5;
+}
+.checkbox--success {
+  @apply text-fill-dark-info;
+}
