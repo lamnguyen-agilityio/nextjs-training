@@ -17,3 +17,4 @@ export * from './ListView';
 export * from './Sort';
 export * from './Dots';
 export * from './Dropdown';
+export * from './Movie';

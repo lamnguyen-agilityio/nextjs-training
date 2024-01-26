@@ -13,3 +13,23 @@ export interface CourseBase
   instructorName: string;
   instructorAvatar: string;
 }
+
+export interface CourseOverview {
+  type: 'single' | 'multiple';
+  title: string;
+  content: string | string[];
+}
+
+export interface Lesson {
+  name: string;
+  time: number;
+  totalVideo: number;
+  isDone: boolean;
+}
+
+export interface CourseLesson {
+  id: string;
+  title: string;
+  totalTime: number;
+  list: Lesson[];
+}
