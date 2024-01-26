@@ -38,11 +38,11 @@ const TableHeaders = <T,>({ columns, defaultSort, onSort }: Props<T>) => {
           <th
             key={`headCell-${index}`}
             scope="col"
-            className="inline-block px-3 py-5 font-medium cursor-pointer"
+            className={`inline-block px-3 py-5 font-medium ${column.sortable && 'cursor-pointer'}`}
             style={{
               width: `${column.width}%`,
             }}
-            onClick={() => handleSort(column.key as keyof T)}
+            onClick={() => column.sortable && handleSort(column.key as keyof T)}
           >
             <div className="flex justify-between items-center">
               {column.title}

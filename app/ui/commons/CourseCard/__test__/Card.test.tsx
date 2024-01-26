@@ -1,24 +1,25 @@
 import { render, screen } from '@testing-library/react';
 
 // Components
-import Card from '..';
+import CourseCard from '..';
 
 // TODO: Get mock course from mocks folder
 const mockCourse = {
   id: '1',
-  logo: '/logo-url',
-  name: 'Course Name',
-  description: 'Course Description',
-  instructor: {
-    id: '1',
-    name: 'Instructor Name',
-    avatar: '/instructor-image-url',
+  course: {
+    name: 'Course Name',
+    image: '/logo-url',
   },
+  instructor: {
+    name: 'Instructor Name',
+    image: '/instructor-image-url',
+  },
+  description: 'Course Description',
 };
 
-describe('Card component', () => {
-  it('renders Card component correctly', () => {
-    render(<Card {...mockCourse} />);
+describe('CourseCard component', () => {
+  it('renders CourseCard component correctly', () => {
+    render(<CourseCard {...mockCourse} />);
 
     // Assert that the key elements are rendered
     expect(screen.getByText('Course Name')).toBeInTheDocument();
