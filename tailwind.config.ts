@@ -107,7 +107,7 @@ const config: Config = {
           danger: '#ff6868',
           text: {
             dark: '#0f1b41',
-            main: '#5a7180',
+            main: '#eff1fc',
             light: '#2e2e2e',
           },
           link: '#58606a',

@@ -32,3 +32,11 @@
 .checkbox--success {
   @apply text-fill-dark-info;
 }
+
+/* Text */
+.title-section {
+  @apply text-sm font-medium text-fill-text-dark;
+}
+.content-section {
+  @apply text-xs text-fill-text-main;
+}
