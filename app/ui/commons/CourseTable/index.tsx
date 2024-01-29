@@ -7,7 +7,7 @@ import { ColumnProps, CourseBase, SortColumn } from '@/app/lib/interfaces';
 import Table from '@/app/ui/commons/Table';
 
 interface Props {
-  columns: Array<ColumnProps<CourseBase>>;
+  columns: ColumnProps<CourseBase>[];
   data: CourseBase[];
   defaultSort?: SortColumn<CourseBase>;
   onSort: (value: SortColumn<CourseBase>) => void;

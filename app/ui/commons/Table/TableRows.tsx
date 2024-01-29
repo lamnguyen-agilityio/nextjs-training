@@ -9,7 +9,7 @@ type Props<T> = {
 const TableRows = <T,>({ columns, data = [] }: Props<T>) => {
   const rows = !data.length ? (
     <tr>
-      <td colSpan={columns.length} className="text-center">
+      <td colSpan={columns.length} className="text-center py-3">
         No records
       </td>
     </tr>
