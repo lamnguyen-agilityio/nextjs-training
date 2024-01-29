@@ -21,6 +21,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '1',
+    instructorId: '2',
   },
   {
     id: '2',
@@ -30,6 +32,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '1',
+    instructorId: '3',
   },
   {
     id: '3',
@@ -39,6 +43,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '2',
+    instructorId: '1',
   },
   {
     id: '4',
@@ -48,6 +54,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '1',
+    instructorId: '5',
   },
   {
     id: '5',
@@ -57,6 +65,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '1',
+    instructorId: '4',
   },
   {
     id: '6',
@@ -66,6 +76,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '1',
+    instructorId: '6',
   },
   {
     id: '7',
@@ -75,6 +87,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '1',
+    instructorId: '7',
   },
   {
     id: '8',
@@ -84,6 +98,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '3',
+    instructorId: '7',
   },
   {
     id: '9',
@@ -93,6 +109,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '3',
+    instructorId: '1',
   },
   {
     id: '10',
@@ -102,6 +120,8 @@ export const records: CourseBase[] = [
     instructorName: 'John',
     instructorAvatar: '/',
     description: 'Lorem',
+    categoryId: '4',
+    instructorId: '1',
   },
 ];
 
