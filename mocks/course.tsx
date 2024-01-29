@@ -234,3 +234,23 @@ export const lessons = [
     ],
   },
 ];
+
+export const categories = [
+  { value: '1', label: 'web' },
+  { value: '2', label: 'node' },
+];
+export const instructors = [
+  { value: '1', label: 'lam' },
+  { value: '2', label: 'tien' },
+];
+export const courseData = {
+  id: '1',
+  name: 'web',
+  logo: '/',
+  categoryName: 'web',
+  description: 'lorem',
+  instructorName: 'tien',
+  instructorAvatar: '/',
+  categoryId: '1',
+  instructorId: '2',
+};

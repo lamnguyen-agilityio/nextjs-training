@@ -15,6 +15,9 @@
 .btn--success {
   @apply bg-outline-info text-background;
 }
+.btn--warning {
+  @apply bg-active-info title-section rounded-lg px-4 hover:opacity-80;
+}
 .btn--small {
   @apply w-8 h-8;
 }
@@ -23,6 +26,9 @@
 }
 .btn--large {
   @apply w-14 h-14;
+}
+.btn--auto {
+  @apply w-auto h-auto;
 }
 
 /* Checkbox component */

@@ -3,12 +3,12 @@ import { HTMLProps, ReactNode } from 'react';
 
 interface Props extends HTMLProps<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'info' | 'success';
-  buttonSize?: 'small' | 'medium' | 'large';
+  variant?: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+  buttonSize?: 'small' | 'medium' | 'large' | 'auto';
   className?: string;
   disabled?: boolean;
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Button: React.FC<Props> = ({
@@ -18,7 +18,7 @@ const Button: React.FC<Props> = ({
   className = '',
   disabled = false,
   children,
-  onClick,
+  onClick = () => {},
   ...props
 }) => (
   <button
