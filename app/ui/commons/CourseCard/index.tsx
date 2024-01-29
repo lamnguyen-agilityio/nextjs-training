@@ -23,7 +23,7 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
         <Image
           src={course.image}
           alt="angular"
-          width={22}
+          width={24}
           height={28}
           className="rounded-full w-auto h-auto"
         />
@@ -31,7 +31,7 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
       </div>
       <Link
         href={`/courses/${id}`}
-        className="relative inline-block text-sm text-fill-text-dark font-medium py-2 before:w-4 before:h-[1px]
+        className="relative inline-block text-sm text-active-primary font-medium pb-2 hover:underline before:w-4 before:h-[1px]
        before:absolute before:bottom-0 before:left-0 before:bg-fill-success"
       >
         {course.name}
@@ -43,9 +43,9 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
         <Image
           src={instructor.image}
           alt="angular"
-          width={22}
-          height={28}
-          className="rounded-full w-auto h-auto"
+          width={24}
+          height={24}
+          className="rounded-full w-6 h-6"
         />
         <p className="text-fill-text-dark font-medium">{instructor.name}</p>
       </div>

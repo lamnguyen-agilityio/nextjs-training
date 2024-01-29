@@ -10,6 +10,13 @@ import {
   getDoc,
   DocumentSnapshot,
   DocumentData,
+  query,
+  limit,
+  startAfter,
+  orderBy,
+  FieldPath,
+  where,
+  endBefore,
 } from 'firebase/firestore';
 
 // Database
@@ -22,18 +29,69 @@ interface Entity {
   id: string;
 }
 
+export interface EntitiesParams {
+  collectionName: string;
+  limitData?: number;
+  orderField?: string | FieldPath;
+  direction?: 'asc' | 'desc';
+  startAfterValue?: string | number;
+  endBeforeValue?: string | number;
+  filter?: {
+    field: string;
+    value: string;
+  };
+}
+
+type QueryCondition =
+  | ReturnType<typeof where>
+  | ReturnType<typeof limit>
+  | ReturnType<typeof orderBy>
+  | ReturnType<typeof endBefore>
+  | ReturnType<typeof startAfter>;
+
 /**
  * Fetch all entities from a collection along with the total count.
  * @param collectionName - The name of the Firebase collection.
  * @returns A Promise containing an array of entities and the total count.
  */
 export const getEntities = async <T extends Entity>(
-  collectionName: string
+  params: EntitiesParams
 ): Promise<Response<T>> => {
-  const querySnapshot = await getDocs(collection(database, collectionName));
+  const {
+    collectionName,
+    limitData = 10,
+    orderField = 'name',
+    direction = 'desc',
+    startAfterValue = '',
+    endBeforeValue = '',
+    filter,
+  } = params;
+
+  const conditions: QueryCondition[] = [
+    orderBy(orderField, direction),
+    limit(limitData),
+  ];
+
+  if (startAfterValue) {
+    conditions.push(startAfter(startAfterValue));
+  }
+
+  if (endBeforeValue) {
+    conditions.push(endBefore(endBeforeValue));
+  }
+
+  if (filter?.field) {
+    conditions.push(where(filter.field, '==', filter.value));
+  }
+
+  const baseQuery = query(collection(database, collectionName), ...conditions);
+
+  const querySnapshot = await getDocs(baseQuery);
+
   const countSnapshot = await getCountFromServer(
     collection(database, collectionName)
   );
+
   const count = countSnapshot.data().count;
   const entities: T[] = [];
 

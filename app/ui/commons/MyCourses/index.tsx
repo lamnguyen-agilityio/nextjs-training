@@ -11,8 +11,8 @@ import CourseCard from '@/app/ui/commons/CourseCard';
 // Interfaces
 import { CourseBase, SortColumn } from '@/app/lib/interfaces';
 
-// Mocks data
-import { columns } from '@/mocks';
+// Constants
+import { COLUMNS } from '@/app/lib/constants';
 
 interface Props {
   totalItems: number;
@@ -64,13 +64,15 @@ const MyCourse = ({ totalItems, itemsPerPage, data }: Props) => {
           ))}
         </div>
       ) : (
-        <CourseTable columns={columns} data={data} onSort={handleSort} />
+        <CourseTable columns={COLUMNS} data={data} onSort={handleSort} />
       )}
-      <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        onPageChange={handleChangePage}
-      />
+      {!!data.length && (
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handleChangePage}
+        />
+      )}
     </div>
   );
 };
