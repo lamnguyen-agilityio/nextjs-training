@@ -40,3 +40,15 @@
 .content-section {
   @apply text-xs text-fill-text-main;
 }
+
+/* Tooltip component */
+.tooltip {
+  @apply relative inline-block;
+}
+.tooltip-text {
+  @apply hidden w-max max-w-[500px] bg-fill-text-main text-background text-center rounded px-2 py-1 absolute z-10 
+  bottom-full left-1/2 transform -translate-x-1/2 opacity-0 transition-opacity duration-700;
+}
+.tooltip:hover .tooltip-text {
+  @apply block opacity-100;
+}
