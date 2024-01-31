@@ -1,5 +1,8 @@
+'use server';
+
 // Utils
-import { EntitiesParams, getEntities } from '.';
+import { revalidatePath } from 'next/cache';
+import { EntitiesParams, deleteEntity, getEntities } from '.';
 
 // Interfaces
 import { Category, Course, Instructor } from '@/app/lib/interfaces';
@@ -56,4 +59,10 @@ export const getCourseListing = async ({
     data: courseListing,
     count: courses.count,
   };
+};
+
+export const deleteCourse = async (id: string) => {
+  await deleteEntity('courses', id);
+
+  revalidatePath('/courses');
 };

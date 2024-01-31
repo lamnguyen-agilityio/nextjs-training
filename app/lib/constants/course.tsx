@@ -5,7 +5,7 @@ import AvatarWithName from '@/app/ui/commons/AvatarWithName';
 import { ColumnProps, CourseBase } from '@/app/lib/interfaces';
 
 // Icons
-import { DotsIcon } from '@/app/ui/icons';
+import { CourseActions } from '@/app/ui/course';
 
 export const COURSES_PER_PAGE = 10;
 export const COLUMNS: ColumnProps<CourseBase>[] = [
@@ -37,11 +37,16 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
     title: 'Description',
     width: 35,
     sortable: true,
+    render: (_, row) => (
+      <p className="overflow-hidden whitespace-nowrap text-ellipsis">
+        {row.description}
+      </p>
+    ),
   },
   {
     key: 'action',
     title: 'Action',
     width: 5,
-    render: (_, row) => <DotsIcon className="cursor-pointer" />,
+    render: (_, row) => <CourseActions id={row.id} />,
   },
 ];
