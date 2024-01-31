@@ -1,18 +1,35 @@
 'use client';
 
 import Image from 'next/image';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+
+// Components
+import Search from '@/app/ui/commons/Search';
 
 // Icons
 import { NotificationIcon } from '@/app/ui/icons';
 
 // Images
 import avatar from '@/public/images/avatar.png';
-import Search from '../Search';
+
+// Constants
+import { SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 
 const Header = () => {
-  // TODO: Handle search courses
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const handleChange = (value: string) => {
-    console.log(value);
+    const params = new URLSearchParams(searchParams);
+    params.set(SEARCH_KEY_PARAMS.FILTER_FIELD, 'name');
+    params.set(SEARCH_KEY_PARAMS.FILTER_VALUE, value);
+
+    // Remove params pagination
+    params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
+    params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
+
+    router.push(`${pathname}?${params}`);
   };
 
   return (

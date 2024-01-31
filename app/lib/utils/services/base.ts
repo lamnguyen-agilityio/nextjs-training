@@ -80,16 +80,17 @@ export const getEntities = async <T extends Entity>(
     conditions.push(endBefore(endBeforeValue));
   }
 
-  if (filter?.field) {
+  if (filter?.field && filter?.value) {
     conditions.push(where(filter.field, '==', filter.value));
   }
 
-  const baseQuery = query(collection(database, collectionName), ...conditions);
+  const baseCondition = collection(database, collectionName);
+  const baseQuery = query(baseCondition, ...conditions);
 
   const querySnapshot = await getDocs(baseQuery);
 
   const countSnapshot = await getCountFromServer(
-    collection(database, collectionName)
+    filter?.field && filter?.value ? baseQuery : baseCondition
   );
 
   const count = countSnapshot.data().count;
