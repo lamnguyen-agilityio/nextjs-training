@@ -28,7 +28,7 @@ const TableRows = <T,>({ columns, data = [] }: Props<T>) => {
             return (
               <td
                 key={`cell-${indexColumns}`}
-                className="inline-block box-border px-3 py-5 overflow-hidden whitespace-nowrap text-ellipsis"
+                className="inline-block box-border px-3 py-5"
                 style={{
                   width: `${column.width}%`,
                 }}

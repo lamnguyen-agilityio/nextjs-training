@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-// Icons
-import { DotsIcon } from '@/app/ui/icons';
+// Components
+import { CourseActions } from '@/app/ui/course';
 
 interface CommonContent {
   name: string;
@@ -27,7 +27,7 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
           height={28}
           className="rounded-full w-auto h-auto"
         />
-        <DotsIcon />
+        <CourseActions id={id} />
       </div>
       <Link
         href={`/courses/${id}`}
