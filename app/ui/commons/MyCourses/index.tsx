@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import CourseAction from '@/app/ui/commons/CourseAction';
@@ -12,25 +13,51 @@ import CourseCard from '@/app/ui/commons/CourseCard';
 import { CourseBase, SortColumn } from '@/app/lib/interfaces';
 
 // Constants
-import { COLUMNS } from '@/app/lib/constants';
+import { COLUMNS, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 
 interface Props {
   totalItems: number;
   itemsPerPage: number;
+  defaultSort: SortColumn<CourseBase>;
   data: CourseBase[];
 }
 
-const MyCourse = ({ totalItems, itemsPerPage, data }: Props) => {
+const MyCourse = ({ totalItems, itemsPerPage, defaultSort, data }: Props) => {
   const [isGridView, setIsGridView] = useState(false);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  // TODO: Implement sort table
-  const handleSort = (value: SortColumn<CourseBase>) => {
-    console.log(value);
+  const handleSort = async (value: SortColumn<CourseBase>) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(SEARCH_KEY_PARAMS.ORDER_FIELD, value.key);
+    params.set(SEARCH_KEY_PARAMS.DIRECTION, value.direction);
+    params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
+    params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
+
+    router.push(`${pathname}?${params}`);
   };
 
-  // TODO: Implement change page of table
-  const handleChangePage = (page: number) => {
-    console.log(page);
+  const handleChangePage = ({
+    firstItem,
+    lastItem,
+  }: {
+    firstItem?: CourseBase;
+    lastItem?: CourseBase;
+  }) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (firstItem) {
+      params.set(SEARCH_KEY_PARAMS.END_BEFORE_VALUE, firstItem.name);
+      params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
+    }
+
+    if (lastItem) {
+      params.set(SEARCH_KEY_PARAMS.START_AFTER_VALUE, lastItem.name);
+      params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
+    }
+
+    router.push(`${pathname}?${params}`);
   };
 
   return (
@@ -64,12 +91,19 @@ const MyCourse = ({ totalItems, itemsPerPage, data }: Props) => {
           ))}
         </div>
       ) : (
-        <CourseTable columns={COLUMNS} data={data} onSort={handleSort} />
+        <CourseTable
+          columns={COLUMNS}
+          data={data}
+          defaultSort={defaultSort}
+          onSort={handleSort}
+        />
       )}
       {!!data.length && (
         <Pagination
           totalItems={totalItems}
           itemsPerPage={itemsPerPage}
+          firstItem={data[0]}
+          lastItem={data[data.length - 1]}
           onPageChange={handleChangePage}
         />
       )}

@@ -22,12 +22,11 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
       />
     ),
   },
-  { key: 'categoryName', title: 'category', width: 20, sortable: true },
+  { key: 'categoryName', title: 'category', width: 20 },
   {
     key: 'instructor',
     title: 'instructor',
     width: 20,
-    sortable: true,
     render: (_, row) => (
       <AvatarWithName src={row.instructorAvatar} name={row.instructorName} />
     ),
@@ -50,6 +49,14 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
     render: (_, row) => <CourseActions id={row.id} />,
   },
 ];
+export const SEARCH_KEY_PARAMS = {
+  ORDER_FIELD: 'orderField',
+  DIRECTION: 'direction',
+  START_AFTER_VALUE: 'startAfterValue',
+  END_BEFORE_VALUE: 'endBeforeValue',
+  FILTER_FIELD: 'filterField',
+  FILTER_VALUE: 'filterValue',
+};
 
 export const MAPPING_OPTION: Record<'value' | 'label', keyof Category> = {
   value: 'id',
