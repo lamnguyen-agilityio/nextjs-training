@@ -2,7 +2,7 @@
 import AvatarWithName from '@/app/ui/commons/AvatarWithName';
 
 // Interfaces
-import { ColumnProps, CourseBase } from '@/app/lib/interfaces';
+import { ColumnProps, CourseBase, Category } from '@/app/lib/interfaces';
 
 // Icons
 import { CourseActions } from '@/app/ui/course';
@@ -50,3 +50,8 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
     render: (_, row) => <CourseActions id={row.id} />,
   },
 ];
+
+export const MAPPING_OPTION: Record<'value' | 'label', keyof Category> = {
+  value: 'id',
+  label: 'name',
+};
