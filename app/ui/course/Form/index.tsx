@@ -9,6 +9,9 @@ import { Course, Option } from '@/app/lib/interfaces';
 // Components
 import Button from '@/app/ui/commons/Button';
 
+// Utils
+import { addCourse, editCourseById } from '@/app/lib/utils';
+
 interface Props {
   id?: string;
   course?: Course;
@@ -23,9 +26,12 @@ export const CourseForm = ({ id, course, categories, instructors }: Props) => {
     formState: { errors, isValid },
   } = useForm<Course>();
 
-  // TODO: Implement submit form
-  const onSubmit: SubmitHandler<Course> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Course> = async (data) => {
+    if (id) {
+      return await editCourseById(id, data);
+    }
+
+    await addCourse(data);
   };
 
   return (
@@ -94,12 +100,14 @@ export const CourseForm = ({ id, course, categories, instructors }: Props) => {
               aria-describedby="category-error"
               {...register('categoryId', { required: true })}
             >
-              <option value="" disabled>
-                Select a category
-              </option>
-              {categories?.map((customer) => (
-                <option key={customer.value} value={customer.value}>
-                  {customer.label}
+              {categories?.map((category) => (
+                <option
+                  key={category.value}
+                  value={category.value}
+                  disabled={!category.value}
+                  className="capitalize"
+                >
+                  {category.label}
                 </option>
               ))}
             </select>
@@ -129,7 +137,11 @@ export const CourseForm = ({ id, course, categories, instructors }: Props) => {
                 Select a instructor
               </option>
               {instructors?.map((customer) => (
-                <option key={customer.value} value={customer.value}>
+                <option
+                  key={customer.value}
+                  value={customer.value}
+                  className="capitalize"
+                >
                   {customer.label}
                 </option>
               ))}

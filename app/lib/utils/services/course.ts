@@ -1,12 +1,18 @@
 'use server';
 
-import { collection, getDocs, query, where } from 'firebase/firestore';
-
-// Utils
-import { EntitiesParams, getEntities, getEntityById, deleteEntity } from '.';
-
-// Utils
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
+// Utils
+import {
+  EntitiesParams,
+  addEntity,
+  deleteEntity,
+  getEntities,
+  getEntityById,
+  updateEntity,
+} from '.';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 // Interfaces
 import {
@@ -24,6 +30,9 @@ import { database } from '@/app/lib/firebase/config';
 
 // Constants
 import { ENTITY, ROUTE } from '@/app/lib/constants';
+
+// Mocks data
+import { courseDetail } from '@/mocks';
 
 interface CourseParam extends Omit<EntitiesParams, 'collectionName'> {
   orderField: keyof Course;
@@ -138,4 +147,25 @@ export const deleteCourse = async (id: string) => {
   await deleteEntity(ENTITY.COURSES, id);
 
   revalidatePath(ROUTE.COURSES);
+};
+
+export const getCourseById = async (id: string) => {
+  return await getEntityById<Course>(ENTITY.COURSES, id);
+};
+
+export const addCourse = async (data: Course) => {
+  const mockCourseDetail = courseDetail;
+  const createdAt = new Date();
+
+  await addEntity(ENTITY.COURSES, { ...data, ...mockCourseDetail, createdAt });
+
+  revalidatePath(ROUTE.COURSES);
+  redirect(ROUTE.COURSES);
+};
+
+export const editCourseById = async (id: string, data: Course) => {
+  await updateEntity(ENTITY.COURSES, id, data);
+
+  revalidatePath(ROUTE.COURSES);
+  redirect(ROUTE.COURSES);
 };
