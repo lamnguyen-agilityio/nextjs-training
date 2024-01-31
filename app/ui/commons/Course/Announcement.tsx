@@ -27,9 +27,9 @@ const Announcement = ({ name, role, time, content, src }: Props) => (
         <Image
           src={src}
           alt="angular"
-          width={42}
-          height={42}
-          className="rounded-full w-auto h-auto"
+          width={40}
+          height={40}
+          className="rounded-full w-10 h-10"
         />
         <div>
           <p className="title-section">{name}</p>

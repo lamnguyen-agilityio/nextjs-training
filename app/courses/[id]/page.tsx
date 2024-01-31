@@ -1,37 +1,28 @@
 import dynamic from 'next/dynamic';
-
-// Mocks data
-import {
-  courseOverview,
-  courseSections,
-  courseSrc,
-  lessons,
-  notification,
-  personName,
-  role,
-  createdAt,
-} from '@/mocks';
-
-// Utils
-import { getRelativeTime } from '@/app/lib/utils';
+import { notFound } from 'next/navigation';
 
 // Components
-const CourseDetail = dynamic(() => import('@/app/ui/commons/Course/Detail'));
+const CourseDetailComponent = dynamic(
+  () => import('@/app/ui/commons/Course/Detail')
+);
+
+// Utils
+import { getInstructorById, getCourseDetailById } from '@/app/lib/utils';
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
+  const { course, lessons } = await getCourseDetailById(id);
+  const instructor = course && (await getInstructorById(course.instructorId));
+
+  if (!course) {
+    return notFound();
+  }
+
   return (
-    <CourseDetail
-      id={id}
-      src={courseSrc}
-      sections={courseSections}
-      courseOverview={courseOverview}
-      personName={personName}
-      role={role}
-      time={getRelativeTime(createdAt)}
-      notification={notification}
-      avatar="/"
+    <CourseDetailComponent
+      course={course}
+      instructor={instructor}
       lessons={lessons}
     />
   );
