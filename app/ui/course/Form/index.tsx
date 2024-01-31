@@ -1,35 +1,35 @@
 'use client';
 
 import Link from 'next/link';
-import { useFormState } from 'react-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 // Interfaces
 import { Course, Option } from '@/app/lib/interfaces';
 
-// Validation
-import { createCourse, updateCourse } from '@/actions';
-
 // Components
 import Button from '@/app/ui/commons/Button';
 
-// Initial data
-const initialState = { message: null, errors: {} };
-
 interface Props {
+  id?: string;
   course?: Course;
   categories: Option[];
   instructors: Option[];
 }
 
-export const CourseForm = ({ course, categories, instructors }: Props) => {
-  const updateCourseWithId = updateCourse.bind(null, course?.id || '');
-  const [state, dispatch] = useFormState(
-    course?.id ? updateCourseWithId : createCourse,
-    initialState
-  );
+export const CourseForm = ({ id, course, categories, instructors }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<Course>();
+
+  // TODO: Implement submit form
+  const onSubmit: SubmitHandler<Course> = (data) => {
+    console.log(data);
+  };
 
   return (
-    <form action={dispatch}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md">
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block title-section">
@@ -39,21 +39,45 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
             <div className="relative">
               <input
                 id="name"
-                name="name"
                 type="string"
                 defaultValue={course?.name}
                 placeholder="Enter name"
                 className="peer block w-full rounded-md border py-2 pl-4 content-section outline-2"
-                aria-describedby="name-error"
+                {...register('name', { required: true })}
               />
             </div>
             <div id="name-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.name &&
-                state.errors.name.map((error: string) => (
-                  <p className="mt-2 text-sm text-fill-danger" key={error}>
-                    {error}
-                  </p>
-                ))}
+              {errors.name && (
+                <p className="mt-2 text-sm text-fill-danger">
+                  Please enter a name
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="logo" className="mb-2 block title-section">
+            Logo
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="logo"
+                type="string"
+                defaultValue={course?.logo}
+                placeholder="Enter logo"
+                className="peer block w-full rounded-md border py-2 pl-4 content-section outline-2"
+                aria-describedby="logo-error"
+                {...register('logo', { required: true })}
+              />
+            </div>
+            <div id="logo-error" aria-live="polite" aria-atomic="true">
+              {errors.logo && (
+                <p className="mt-2 text-sm text-fill-danger">
+                  Please enter a logo
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -65,10 +89,10 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
           <div className="relative">
             <select
               id="category"
-              name="categoryId"
               className="peer block w-full cursor-pointer rounded-md border py-2 pl-4 content-section outline-2"
               defaultValue={course?.categoryId || ''}
               aria-describedby="category-error"
+              {...register('categoryId', { required: true })}
             >
               <option value="" disabled>
                 Select a category
@@ -81,12 +105,11 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
             </select>
           </div>
           <div id="category-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.categoryId &&
-              state.errors.categoryId.map((error: string) => (
-                <p className="mt-2 text-sm text-fill-danger" key={error}>
-                  {error}
-                </p>
-              ))}
+            {errors.categoryId && (
+              <p className="mt-2 text-sm text-fill-danger">
+                Please choose the category
+              </p>
+            )}
           </div>
         </div>
 
@@ -97,10 +120,10 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
           <div className="relative">
             <select
               id="instructor"
-              name="instructorId"
               className="peer block w-full cursor-pointer rounded-md border py-2 pl-4 content-section outline-2"
               defaultValue={course?.instructorId || ''}
               aria-describedby="instructor-error"
+              {...register('instructorId', { required: true })}
             >
               <option value="" disabled>
                 Select a instructor
@@ -113,12 +136,11 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
             </select>
           </div>
           <div id="instructor-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.instructorId &&
-              state.errors.instructorId.map((error: string) => (
-                <p className="mt-2 text-sm text-fill-danger" key={error}>
-                  {error}
-                </p>
-              ))}
+            {errors.instructorId && (
+              <p className="mt-2 text-sm text-fill-danger">
+                Please choose the instructor
+              </p>
+            )}
           </div>
         </div>
 
@@ -130,33 +152,23 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
             <div className="relative">
               <textarea
                 id="description"
-                name="description"
                 rows={4}
                 cols={50}
                 defaultValue={course?.description}
                 placeholder="Enter description"
                 className="peer block w-full rounded-md border py-2 pl-4 content-section outline-2"
                 aria-describedby="description-error"
+                {...register('description', { required: true })}
               />
             </div>
             <div id="description-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.description &&
-                state.errors.description.map((error: string) => (
-                  <p className="mt-2 text-sm text-fill-danger" key={error}>
-                    {error}
-                  </p>
-                ))}
+              {errors?.description && (
+                <p className="mt-2 text-sm text-fill-danger">
+                  Please enter the description
+                </p>
+              )}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="mt-6 flex justify-end gap-4">
-        <div id="status-error" aria-live="polite" aria-atomic="true">
-          {state.message && (
-            <p className="mt-2 text-sm text-fill-danger" key={state.message}>
-              {state.message}
-            </p>
-          )}
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
@@ -171,8 +183,9 @@ export const CourseForm = ({ course, categories, instructors }: Props) => {
           type="submit"
           buttonSize="auto"
           className="capitalize"
+          disabled={!isValid}
         >
-          {course?.id ? 'edit course' : 'create course'}
+          {id ? 'edit course' : 'create course'}
         </Button>
       </div>
     </form>
