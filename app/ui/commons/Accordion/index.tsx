@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 
 // Icons
 import { DropdownIcon } from '@/app/ui/icons';
@@ -13,8 +13,28 @@ interface Props {
   onSetActive?: (value: number | null) => void;
 }
 
+const convertSectionsToJSX = (sections: Section[]) => {
+  return sections.map((section) => {
+    const sectionTitle = (
+      <div className="text-sm font-medium text-fill-text-dark">
+        {section.title}
+      </div>
+    );
+
+    const sectionContent = (
+      <div className="text-xs text-fill-text-main">{section.content}</div>
+    );
+
+    return {
+      title: sectionTitle,
+      content: sectionContent,
+    };
+  });
+};
+
 const Accordion = ({ type = 'primary', sections, onSetActive }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const convertedSections = convertSectionsToJSX(sections);
 
   const handleToggle = (index: number) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -23,7 +43,7 @@ const Accordion = ({ type = 'primary', sections, onSetActive }: Props) => {
 
   return (
     <div>
-      {sections.map((section, index) => {
+      {convertedSections.map((section, index) => {
         const isActive = activeIndex === index;
 
         return (

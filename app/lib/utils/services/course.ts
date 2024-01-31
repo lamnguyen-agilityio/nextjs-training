@@ -1,11 +1,29 @@
 'use server';
 
+import { collection, getDocs, query, where } from 'firebase/firestore';
+
+// Utils
+import { EntitiesParams, getEntities, getEntityById, deleteEntity } from '.';
+
 // Utils
 import { revalidatePath } from 'next/cache';
-import { EntitiesParams, deleteEntity, getEntities } from '.';
 
 // Interfaces
-import { Category, Course, Instructor } from '@/app/lib/interfaces';
+import {
+  Category,
+  Course,
+  CourseDetail,
+  CourseLesson,
+  Instructor,
+  Lesson,
+  LessonResponse,
+} from '@/app/lib/interfaces';
+
+// Database
+import { database } from '@/app/lib/firebase/config';
+
+// Constants
+import { ENTITY, ROUTE } from '@/app/lib/constants';
 
 interface CourseParam extends Omit<EntitiesParams, 'collectionName'> {
   orderField: keyof Course;
@@ -24,15 +42,15 @@ export const getCourseListing = async ({
 }: CourseParam) => {
   const [courses, categories, instructors] = await Promise.all([
     getEntities<Course>({
-      collectionName: 'courses',
+      collectionName: ENTITY.COURSES,
       orderField,
       direction,
       startAfterValue,
       endBeforeValue,
       filter,
     }),
-    getEntities<Category>({ collectionName: 'categories' }),
-    getEntities<Instructor>({ collectionName: 'instructors' }),
+    getEntities<Category>({ collectionName: ENTITY.CATEGORIES }),
+    getEntities<Instructor>({ collectionName: ENTITY.INSTRUCTORS }),
   ]);
 
   const courseListing = courses.data.map((course) => {
@@ -61,8 +79,63 @@ export const getCourseListing = async ({
   };
 };
 
-export const deleteCourse = async (id: string) => {
-  await deleteEntity('courses', id);
+export const getLessonsByCourseId = async (
+  id: string
+): Promise<CourseLesson[]> => {
+  const baseQuery = query(
+    collection(database, ENTITY.LESSONS),
+    where('courseId', '==', id)
+  );
 
-  revalidatePath('/courses');
+  const querySnapshot = await getDocs(baseQuery);
+
+  const entities: LessonResponse[] = [];
+
+  querySnapshot.forEach((doc) => {
+    entities.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+
+  if (!entities.length) {
+    return [];
+  }
+
+  // Entities is only 1 items
+  // Get lessons from first value
+  const lessons =
+    entities[0].data &&
+    entities[0].data.map((item: CourseLesson) => {
+      const { id, title, list } = item;
+      let totalTime = 0;
+
+      return {
+        id: id,
+        title: title,
+        list: list.map((itemList: Lesson) => {
+          totalTime += itemList.time;
+          return itemList;
+        }),
+        totalTime,
+      };
+    });
+
+  return lessons as CourseLesson[];
+};
+
+export const getCourseDetailById = async (id: string) => {
+  // TODO: Update the courses, instructors entity by using constant
+  const [course, lessons] = await Promise.all([
+    getEntityById<CourseDetail>(ENTITY.COURSES, id),
+    getLessonsByCourseId(id),
+  ]);
+
+  return { course, lessons };
+};
+
+export const deleteCourse = async (id: string) => {
+  await deleteEntity(ENTITY.COURSES, id);
+
+  revalidatePath(ROUTE.COURSES);
 };

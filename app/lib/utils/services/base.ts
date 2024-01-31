@@ -116,16 +116,20 @@ export const getEntityById = async <T extends Entity>(
   collectionName: string,
   id: string
 ): Promise<T | undefined> => {
-  const documentSnapshot: DocumentSnapshot<DocumentData> = await getDoc(
-    doc(database, collectionName, id)
-  );
+  try {
+    const documentSnapshot: DocumentSnapshot<DocumentData> = await getDoc(
+      doc(database, collectionName, id)
+    );
 
-  if (!documentSnapshot.exists()) {
+    if (!documentSnapshot.exists()) {
+      return undefined;
+    }
+
+    const entityData = documentSnapshot.data();
+    return entityData as T;
+  } catch (error) {
     return undefined;
   }
-
-  const entityData = documentSnapshot.data();
-  return entityData as T;
 };
 
 /**
