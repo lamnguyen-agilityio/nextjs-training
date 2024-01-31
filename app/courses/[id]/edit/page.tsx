@@ -1,14 +1,38 @@
+import { notFound } from 'next/navigation';
+
+// Component
 import { CourseForm } from '@/app/ui/course';
 
-// Mocks data
-import { categories, courseData, instructors } from '@/mocks';
+// Utils
+import {
+  getCategoryOptions,
+  getCourseById,
+  getInstructorOptions,
+} from '@/app/lib/utils';
 
-const Page = () => {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const Page = async ({ params }: PageProps) => {
+  const id = params.id;
+
+  const course = await getCourseById(id);
+  const categoryOptions = await getCategoryOptions();
+  const instructorOptions = await getInstructorOptions();
+
+  if (!course) {
+    return notFound();
+  }
+
   return (
     <CourseForm
-      categories={categories}
-      instructors={instructors}
-      course={courseData}
+      id={id}
+      categories={categoryOptions}
+      instructors={instructorOptions}
+      course={course}
     />
   );
 };

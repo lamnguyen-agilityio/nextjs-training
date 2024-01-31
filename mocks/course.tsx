@@ -254,3 +254,58 @@ export const courseData = {
   categoryId: '1',
   instructorId: '2',
 };
+
+export const courseDetail = {
+  announcement:
+    'Cras quis nulla commodo, aliquam lectus sed, blandit augue. Cras ullamcorper bibendum bibendum. Duis tincidunt urna non pretium porta. Nam condimentum vitae ligula vel ornare. Phasellus at semper turpis. Nunc eu tellus tortor. Etiam at condimentum nisl, vitae sagittis orci. Donec id dignissim nunc. Donec elit ante, eleifend a dolor et, venenatis facilisis dolor. In feugiat orci odio, sed lacinia sem elementum quis. Aliquam consectetur, eros et vulputate euismod, nunc leo tempor lacus, ac rhoncus neque eros nec lacus. Cras lobortis molestie faucibus',
+  faq: [
+    {
+      content:
+        'The primary goal of this quick start guide is to introduce you to Unreal Engine 4`s (UE4) development environment. By the end of this guide,         you`ll know how to set up and develop C++ Projects in UE4. This guide         shows you how to create a new Unreal Engine project, add a new C++ class to it, compile the project, and add an instance of a new class to your level. By the time you reach the end of this guide, you`ll be able to see your programmed Actor floating above a table in the level',
+      title: 'Html Introduction',
+    },
+    {
+      content:
+        'The primary goal of this quick start guide is to introduce you to Unreal Engine 4`s (UE4) development environment. By the end of this guide,         you`ll know how to set up and develop C++ Projects in UE4. This guide         shows you how to create a new Unreal Engine project, add a new C++ class to it, compile the project, and add an instance of a new class to your level. By the time you reach the end of this guide, you`ll be able to see your programmed Actor floating above a table in the level',
+      title: 'Your First webpage',
+    },
+    {
+      content:
+        'The primary goal of this quick start guide is to introduce you to Unreal Engine 4`s (UE4) development environment. By the end of this guide,         you`ll know how to set up and develop C++ Projects in UE4. This guide         shows you how to create a new Unreal Engine project, add a new C++ class to it, compile the project, and add an instance of a new class to your level. By the time you reach the end of this guide, you`ll be able to see your programmed Actor floating above a table in the level',
+      title: 'Some Special Tags',
+    },
+    {
+      content:
+        'The primary goal of this quick start guide is to introduce you to Unreal Engine 4`s (UE4) development environment. By the end of this guide,         you`ll know how to set up and develop C++ Projects in UE4. This guide         shows you how to create a new Unreal Engine project, add a new C++ class to it, compile the project, and add an instance of a new class to your level. By the time you reach the end of this guide, you`ll be able to see your programmed Actor floating above a table in the level',
+      title: 'Bootstrap Introduction',
+    },
+  ],
+  overview: [
+    {
+      content:
+        'Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim neque. Ut porta viverra est, ut dignissim elit elementum ut. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio. Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis vehicula neque.',
+      title: 'About Course',
+      type: 'single',
+    },
+    {
+      content: [
+        'Setting up the environment',
+        'Advanced HTML Practices',
+        'Build a portfolio website',
+        'Responsive Designs',
+        'Code HTML',
+        'Understand HTML Programming',
+        'Start building beautiful websites',
+      ],
+      title: 'What You’ll Learn',
+      type: 'multiple',
+    },
+    {
+      content:
+        'Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim neque. Ut porta viverra est, ut dignissim elit elementum ut. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio. Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis vehicula neque.',
+      title: 'Here Is Exactly What We Cover In This Course',
+      type: 'single',
+    },
+  ],
+  src: 'https://www.youtube.com/embed/E7wJTI-1dvQ',
+};
