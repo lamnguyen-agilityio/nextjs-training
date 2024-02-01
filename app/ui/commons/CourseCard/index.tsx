@@ -36,7 +36,7 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
       >
         {course.name}
       </Link>
-      <span className="pb-1 border-b text-fill-text-main line-clamp-3">
+      <span className="min-h-20 pb-1 border-b text-fill-text-main line-clamp-3">
         {description}
       </span>
       <div className="flex gap-2 items-center mt-auto">

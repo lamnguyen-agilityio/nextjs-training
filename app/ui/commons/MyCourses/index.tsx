@@ -10,7 +10,7 @@ import Pagination from '@/app/ui/commons/Pagination';
 import CourseCard from '@/app/ui/commons/CourseCard';
 
 // Interfaces
-import { CourseBase, SortColumn } from '@/app/lib/interfaces';
+import { CourseBase, Option, SortColumn } from '@/app/lib/interfaces';
 
 // Constants
 import { COLUMNS, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
@@ -18,11 +18,20 @@ import { COLUMNS, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 interface Props {
   totalItems: number;
   itemsPerPage: number;
+  defaultLabel: string;
   defaultSort: SortColumn<CourseBase>;
   data: CourseBase[];
+  categoryOptions: Option[];
 }
 
-const MyCourse = ({ totalItems, itemsPerPage, defaultSort, data }: Props) => {
+const MyCourse = ({
+  totalItems,
+  itemsPerPage,
+  defaultLabel,
+  defaultSort,
+  data,
+  categoryOptions,
+}: Props) => {
   const [isGridView, setIsGridView] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -60,6 +69,23 @@ const MyCourse = ({ totalItems, itemsPerPage, defaultSort, data }: Props) => {
     router.push(`${pathname}?${params}`);
   };
 
+  const handleFilterByCategory = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (value) {
+      params.set(SEARCH_KEY_PARAMS.FILTER_FIELD, 'categoryId');
+      params.set(SEARCH_KEY_PARAMS.FILTER_VALUE, value);
+    } else {
+      params.delete(SEARCH_KEY_PARAMS.FILTER_FIELD);
+      params.delete(SEARCH_KEY_PARAMS.FILTER_VALUE);
+    }
+
+    params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
+    params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
+
+    router.push(`${pathname}?${params}`);
+  };
+
   return (
     <div className="pr-10 flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -69,7 +95,13 @@ const MyCourse = ({ totalItems, itemsPerPage, defaultSort, data }: Props) => {
             &quot;All Courses&quot;
           </span>
         </h5>
-        <CourseAction onToggleView={setIsGridView} isGridView={isGridView} />
+        <CourseAction
+          onToggleView={setIsGridView}
+          isGridView={isGridView}
+          defaultLabel={defaultLabel}
+          categoryOptions={categoryOptions}
+          onFilterByCategory={handleFilterByCategory}
+        />
       </div>
       {isGridView ? (
         <div className="flex flex-wrap items-center gap-10">
