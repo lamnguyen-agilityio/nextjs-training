@@ -1,5 +1,5 @@
 // Utils
-import { getEntities } from '.';
+import { getEntities, getEntityById } from '.';
 
 // Interfaces
 import { Category } from '@/app/lib/interfaces';
@@ -20,4 +20,8 @@ export const getCategoryOptions = async () => {
     }));
 
   return categoryOptions;
+};
+
+export const getCategoryById = async (id: string) => {
+  return await getEntityById<Category>(ENTITY.CATEGORIES, id);
 };

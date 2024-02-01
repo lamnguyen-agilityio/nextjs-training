@@ -1,8 +1,5 @@
 'use client';
 
-// Mocks data
-import { categoryOptions } from '@/mocks';
-
 // Components
 import Dropdown from '@/app/ui/commons/Dropdown';
 import Button from '@/app/ui/commons/Button';
@@ -10,15 +7,26 @@ import Button from '@/app/ui/commons/Button';
 // Icons
 import { CardViewIcon, FilterIcon, ListViewIcon } from '@/app/ui/icons';
 
+// Interfaces
+import { Option } from '@/app/lib/interfaces';
+
 interface Props {
   isGridView: boolean;
+  categoryOptions: Option[];
+  defaultLabel: string;
   onToggleView: (isGridView: boolean) => void;
+  onFilterByCategory: (value: string) => void;
 }
 
-const CourseAction = ({ isGridView = false, onToggleView }: Props) => {
-  // TODO: Implement handle change function
+const CourseAction = ({
+  isGridView = false,
+  categoryOptions,
+  defaultLabel,
+  onToggleView,
+  onFilterByCategory,
+}: Props) => {
   const handleSortByCategory = (value: string) => {
-    console.log(value);
+    onFilterByCategory(value);
   };
 
   const toggleView = () => {
@@ -37,6 +45,7 @@ const CourseAction = ({ isGridView = false, onToggleView }: Props) => {
           options={categoryOptions}
           label="sort by"
           onChange={handleSortByCategory}
+          defaultLabel={defaultLabel}
         />
       )}
       <Button type="button" onClick={handleFilter}>

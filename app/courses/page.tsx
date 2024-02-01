@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic';
 
 // Utils
-import { getCourseListing } from '@/app/lib/utils';
+import {
+  getCategoryById,
+  getCategoryOptions,
+  getCourseListing,
+} from '@/app/lib/utils';
 
 // Interfaces
 import { Course, CourseBase, SearchParams } from '@/app/lib/interfaces';
@@ -41,12 +45,21 @@ const Courses = async ({
     filter: { value: filterValue, field: filterField },
   });
 
+  const category = await getCategoryById(filterValue);
+  const categoryOptions = await getCategoryOptions();
+
+  const defaultLabelCategory = category
+    ? category.name
+    : categoryOptions.find((category) => !category.value)?.label;
+
   return (
     <MyCourse
       data={data}
       totalItems={count}
       defaultSort={{ key: orderField as keyof CourseBase, direction }}
       itemsPerPage={COURSES_PER_PAGE}
+      categoryOptions={categoryOptions}
+      defaultLabel={defaultLabelCategory || ''}
     />
   );
 };

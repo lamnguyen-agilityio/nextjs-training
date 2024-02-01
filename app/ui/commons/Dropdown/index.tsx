@@ -10,7 +10,7 @@ interface Props {
   options: Option[];
   onChange: (value: string) => void;
   label: string;
-  defaultValue?: string;
+  defaultLabel?: string;
   disabled?: boolean;
 }
 
@@ -18,12 +18,12 @@ const Dropdown: React.FC<Props> = ({
   options,
   onChange,
   label,
-  defaultValue = '',
+  defaultLabel = '',
   disabled = false,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(
-    defaultValue || null
+    defaultLabel || null
   );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ const Dropdown: React.FC<Props> = ({
             <span className="absolute top-1 left-0 capitalize text-outline-link">
               {label}:
             </span>
-            <span className="font-medium text-fill-dark-text-dark pl-14">
+            <span className="font-medium text-fill-dark-text-dark capitalize pl-14">
               {selectedOption}
             </span>
           </p>
@@ -75,11 +75,11 @@ const Dropdown: React.FC<Props> = ({
           </span>
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-1 bg-background rounded-b-md shadow-md">
+          <div className="absolute top-full left-0 w-full mt-1 bg-background rounded-b-md shadow-md z-10">
             {options.map((option) => (
               <p
                 key={option.value}
-                className="p-2 cursor-pointer text-fill-dark-text-dark truncate border-b hover:opacity-70"
+                className="p-2 cursor-pointer text-fill-dark-text-dark truncate border-b capitalize hover:opacity-70"
                 data-value={option.label}
                 onClick={() => {
                   handleChange(option.label);
