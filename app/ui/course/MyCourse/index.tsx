@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import { CourseTable, TableActions, CourseCard } from '@/app/ui/course';
 import Pagination from '@/app/ui/commons/Pagination';
 
+// Contexts
+import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
+
 // Interfaces
 import { CourseBase, Option, SortColumn } from '@/app/lib/interfaces';
 
 // Constants
-import { COLUMNS, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
+import { COLUMNS, ROUTE, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 
 interface Props {
   totalItems: number;
@@ -31,9 +34,12 @@ const MyCourse = ({
   categoryOptions,
 }: Props) => {
   const [isGridView, setIsGridView] = useState(false);
+  const [category, setCategory] = useState<string | undefined>(defaultLabel);
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { updateBreadcrumb } = useBreadcrumb();
 
   const handleSort = async (value: SortColumn<CourseBase>) => {
     const params = new URLSearchParams(searchParams);
@@ -69,6 +75,11 @@ const MyCourse = ({
 
   const handleFilterByCategory = (value: string) => {
     const params = new URLSearchParams(searchParams);
+    const currentCategory = value
+      ? categoryOptions.find((category) => category.value === value)?.label
+      : categoryOptions.find((category) => !category.value)?.label;
+
+    setCategory(currentCategory);
 
     if (value) {
       params.set(SEARCH_KEY_PARAMS.FILTER_FIELD, 'categoryId');
@@ -84,13 +95,17 @@ const MyCourse = ({
     router.push(`${pathname}?${params}`);
   };
 
+  useEffect(() => {
+    updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSES }]);
+  }, [updateBreadcrumb]);
+
   return (
     <div className="pr-10 flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <h5 className="text-lg text-fill-dark-link">
           My Courses for
-          <span className="font-bold text-fill-light-link pl-1">
-            &quot;All Courses&quot;
+          <span className="font-bold text-fill-light-link capitalize pl-1">
+            &quot;{category}&quot;
           </span>
         </h5>
         <TableActions

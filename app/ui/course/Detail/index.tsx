@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect } from 'react';
+
 // Components
 import Tabs from '@/app/ui/commons/Tabs';
 import {
@@ -13,6 +17,12 @@ import { CourseDetail, CourseLesson, Instructor } from '@/app/lib/interfaces';
 // Utils
 import { convertTimestampToDate, getRelativeTime } from '@/app/lib/utils';
 
+// Contexts
+import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
+
+// Constants
+import { ROUTE } from '@/app/lib/constants';
+
 interface Props {
   lessons: CourseLesson[];
   course?: CourseDetail;
@@ -20,6 +30,8 @@ interface Props {
 }
 
 const Detail = ({ lessons, course, instructor }: Props) => {
+  const { updateBreadcrumb } = useBreadcrumb();
+
   const time =
     (course &&
       getRelativeTime(
@@ -52,6 +64,19 @@ const Detail = ({ lessons, course, instructor }: Props) => {
         ),
       },
     ];
+
+  useEffect(() => {
+    if (course?.name) {
+      updateBreadcrumb([
+        { title: 'My Course', href: ROUTE.COURSES },
+        { title: course?.name, href: ROUTE.COURSES, active: true },
+      ]);
+    }
+
+    return () => {
+      updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSES }]);
+    };
+  }, [course?.name, updateBreadcrumb]);
 
   return (
     <main className="flex justify-start gap-x-8 pr-10">
