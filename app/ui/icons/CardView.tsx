@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const CardViewIcon = (props: SVGProps<SVGSVGElement>) => (
+export const CardViewIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="15"
     height="15"
@@ -20,5 +20,3 @@ const CardViewIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-
-export { CardViewIcon };

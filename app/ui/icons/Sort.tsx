@@ -9,11 +9,7 @@ const generateClassName = (active: boolean): string => {
   return active ? 'fill-active-primary' : 'fill-active-text-dark';
 };
 
-export const SortIcon: React.FC<Props> = ({
-  sortType,
-  active = false,
-  ...props
-}) => (
+export const SortIcon = ({ sortType, active = false, ...props }: Props) => (
   <svg
     width="10"
     height="13"

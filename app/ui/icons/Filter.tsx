@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const FilterIcon = (props: SVGProps<SVGSVGElement>) => {
+export const FilterIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="13"
@@ -13,5 +13,3 @@ const FilterIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { FilterIcon };

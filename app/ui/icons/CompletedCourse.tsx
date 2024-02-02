@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const CompletedCourseIcon = (props: SVGProps<SVGSVGElement>) => {
+export const CompletedCourseIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -17,5 +17,3 @@ const CompletedCourseIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { CompletedCourseIcon };
