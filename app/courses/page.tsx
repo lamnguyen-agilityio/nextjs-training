@@ -14,7 +14,7 @@ import { Course, CourseBase, SearchParams } from '@/app/lib/interfaces';
 import { COURSES_PER_PAGE } from '@/app/lib/constants';
 
 // Components
-const MyCourse = dynamic(() => import('@/app/ui/commons/MyCourses'));
+const MyCourse = dynamic(() => import('@/app/ui/course/MyCourse'));
 
 const Courses = async ({
   searchParams = {

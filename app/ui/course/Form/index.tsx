@@ -19,7 +19,7 @@ interface Props {
   instructors: Option[];
 }
 
-export const CourseForm = ({ id, course, categories, instructors }: Props) => {
+const Form = ({ id, course, categories, instructors }: Props) => {
   const {
     register,
     handleSubmit,
@@ -203,3 +203,5 @@ export const CourseForm = ({ id, course, categories, instructors }: Props) => {
     </form>
   );
 };
+
+export default Form;

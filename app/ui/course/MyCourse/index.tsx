@@ -4,10 +4,8 @@ import { useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
-import CourseAction from '@/app/ui/commons/CourseAction';
-import CourseTable from '@/app/ui/commons/CourseTable';
+import { CourseTable, TableActions, CourseCard } from '@/app/ui/course';
 import Pagination from '@/app/ui/commons/Pagination';
-import CourseCard from '@/app/ui/commons/CourseCard';
 
 // Interfaces
 import { CourseBase, Option, SortColumn } from '@/app/lib/interfaces';
@@ -95,7 +93,7 @@ const MyCourse = ({
             &quot;All Courses&quot;
           </span>
         </h5>
-        <CourseAction
+        <TableActions
           onToggleView={setIsGridView}
           isGridView={isGridView}
           defaultLabel={defaultLabel}

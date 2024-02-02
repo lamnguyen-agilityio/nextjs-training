@@ -18,7 +18,7 @@ interface Props {
   onFilterByCategory: (value: string) => void;
 }
 
-const CourseAction = ({
+const TableActions = ({
   isGridView = false,
   categoryOptions,
   defaultLabel,
@@ -73,4 +73,4 @@ const CourseAction = ({
   );
 };
 
-export default CourseAction;
+export default TableActions;

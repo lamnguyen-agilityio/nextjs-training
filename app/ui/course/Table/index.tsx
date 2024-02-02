@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 // Interfaces
 import { ColumnProps, CourseBase, SortColumn } from '@/app/lib/interfaces';
 
@@ -13,7 +11,7 @@ interface Props {
   onSort: (value: SortColumn<CourseBase>) => void;
 }
 
-const CourseTable: FC<Props> = ({ columns, data, defaultSort, onSort }) => (
+const CourseTable = ({ columns, data, defaultSort, onSort }: Props) => (
   <Table
     columns={columns}
     data={data}

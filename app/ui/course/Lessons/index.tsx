@@ -1,10 +1,10 @@
 'use client';
 
 import { CourseLesson } from '@/app/lib/interfaces';
-import Accordion from '../Accordion';
-import Checkbox from '../Checkbox';
+import Accordion from '@/app/ui/commons/Accordion';
+import Checkbox from '@/app/ui/commons/Checkbox';
 import { useState } from 'react';
-import { MovieIcon } from '../../icons';
+import { MovieIcon } from '@/app/ui/icons';
 
 interface Props {
   lessons: CourseLesson[];

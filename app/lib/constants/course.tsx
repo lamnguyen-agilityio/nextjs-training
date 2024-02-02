@@ -5,7 +5,7 @@ import AvatarWithName from '@/app/ui/commons/AvatarWithName';
 import { ColumnProps, CourseBase, Category } from '@/app/lib/interfaces';
 
 // Icons
-import { CourseActions } from '@/app/ui/course';
+import { GroupActions } from '@/app/ui/course';
 
 export const COURSES_PER_PAGE = 10;
 export const COLUMNS: ColumnProps<CourseBase>[] = [
@@ -46,7 +46,7 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
     key: 'action',
     title: 'Action',
     width: 5,
-    render: (_, row) => <CourseActions id={row.id} />,
+    render: (_, row) => <GroupActions id={row.id} />,
   },
 ];
 export const SEARCH_KEY_PARAMS = {

@@ -2,9 +2,7 @@ import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 
 // Components
-const CourseDetailComponent = dynamic(
-  () => import('@/app/ui/commons/Course/Detail')
-);
+const CourseDetail = dynamic(() => import('@/app/ui/course/Detail'));
 
 // Utils
 import { getInstructorById, getCourseDetailById } from '@/app/lib/utils';
@@ -20,11 +18,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <CourseDetailComponent
-      course={course}
-      instructor={instructor}
-      lessons={lessons}
-    />
+    <CourseDetail course={course} instructor={instructor} lessons={lessons} />
   );
 };
 

@@ -14,7 +14,7 @@ interface Props {
   id: string;
 }
 
-export const CourseActions = ({ id }: Props) => {
+const GroupActions = ({ id }: Props) => {
   const deleteCourseWithId = deleteCourse.bind(null, id);
 
   return (
@@ -46,3 +46,5 @@ export const CourseActions = ({ id }: Props) => {
     />
   );
 };
+
+export default GroupActions;

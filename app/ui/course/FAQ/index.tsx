@@ -1,5 +1,5 @@
 // Components
-import Accordion from '../Accordion';
+import Accordion from '@/app/ui/commons/Accordion';
 
 // Interfaces
 import { Section } from '@/app/lib/interfaces';

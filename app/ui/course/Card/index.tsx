@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // Components
-import { CourseActions } from '@/app/ui/course';
+import { GroupActions } from '@/app/ui/course';
 
 interface CommonContent {
   name: string;
@@ -16,7 +16,7 @@ interface Props {
   instructor: CommonContent;
 }
 
-const CourseCard = ({ id, description, course, instructor }: Props) => {
+const Card = ({ id, description, course, instructor }: Props) => {
   return (
     <section className="relative flex flex-col justify-between gap-3 group bg-background rounded-md overflow-hidden text-xs px-5 py-3">
       <div className="flex justify-between items-center">
@@ -27,7 +27,7 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
           height={28}
           className="rounded-full w-auto h-auto"
         />
-        <CourseActions id={id} />
+        <GroupActions id={id} />
       </div>
       <Link
         href={`/courses/${id}`}
@@ -54,4 +54,4 @@ const CourseCard = ({ id, description, course, instructor }: Props) => {
   );
 };
 
-export default CourseCard;
+export default Card;
