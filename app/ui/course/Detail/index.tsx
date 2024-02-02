@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 // Components
-import Tabs from '@/app/ui/commons/Tabs';
+import { Tabs } from '@/app/ui/commons';
 import {
   Announcement,
   CourseFAQ,

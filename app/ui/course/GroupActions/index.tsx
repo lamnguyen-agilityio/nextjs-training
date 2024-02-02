@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
 // Components
-import Popover from '@/app/ui/commons/Popover';
-import Button from '@/app/ui/commons/Button';
+import { Button, Popover } from '@/app/ui/commons';
 
 // Utils
 import { deleteCourse } from '@/app/lib/utils';

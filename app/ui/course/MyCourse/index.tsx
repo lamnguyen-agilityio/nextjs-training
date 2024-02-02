@@ -5,7 +5,7 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import { CourseTable, TableActions, CourseCard } from '@/app/ui/course';
-import Pagination from '@/app/ui/commons/Pagination';
+import { Pagination } from '@/app/ui/commons';
 
 // Contexts
 import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';

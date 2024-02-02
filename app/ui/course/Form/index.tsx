@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Course, Option } from '@/app/lib/interfaces';
 
 // Components
-import Button from '@/app/ui/commons/Button';
+import { Button } from '@/app/ui/commons';
 
 // Utils
 import { addCourse, editCourseById } from '@/app/lib/utils';

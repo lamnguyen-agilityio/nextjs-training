@@ -5,7 +5,7 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 // Components
-import Search from '@/app/ui/commons/Search';
+import { Search } from '@/app/ui/commons';
 
 // Icons
 import { NotificationIcon } from '@/app/ui/icons';

@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef, Fragment } from 'react';
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
 
 // Interfaces
 import { Option } from '@/app/lib/interfaces';

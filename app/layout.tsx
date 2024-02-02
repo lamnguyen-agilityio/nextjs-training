@@ -2,8 +2,7 @@ import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
 // Components
-import SideNav from '@/app/ui/commons/SideNav';
-import Header from '@/app/ui/commons/Header';
+import { Header, SideNav } from '@/app/ui/commons';
 
 // Fonts
 import { inter } from '@/app/ui/themes/fonts';

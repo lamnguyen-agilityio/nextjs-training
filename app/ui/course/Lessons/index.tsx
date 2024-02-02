@@ -1,10 +1,14 @@
 'use client';
-
-import { CourseLesson } from '@/app/lib/interfaces';
-import Accordion from '@/app/ui/commons/Accordion';
-import Checkbox from '@/app/ui/commons/Checkbox';
 import { useState } from 'react';
+
+// Components
+import { Checkbox, Accordion } from '@/app/ui/commons';
+
+// Icons
 import { MovieIcon } from '@/app/ui/icons';
+
+// Interfaces
+import { CourseLesson } from '@/app/lib/interfaces';
 
 interface Props {
   lessons: CourseLesson[];
@@ -36,6 +40,7 @@ const convertSectionsToJSX = (
             <Checkbox
               checked={item.isDone}
               onChange={(value) => console.log(value)}
+              disabled
             />
             <div className="flex flex-col gap-1 title-section -mt-[2px]">
               {`${itemIndex + 1}. ${item.name}`}

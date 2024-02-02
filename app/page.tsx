@@ -1,4 +1,4 @@
-import ComingSoon from '@/app/ui/commons/ComingSoon';
+import { ComingSoon } from '@/app/ui/commons';
 
 const Page = () => {
   return <ComingSoon />;
