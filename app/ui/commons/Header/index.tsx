@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // Components
 import Search from '@/app/ui/commons/Search';
@@ -12,6 +13,9 @@ import { NotificationIcon } from '@/app/ui/icons';
 // Images
 import avatar from '@/public/images/avatar.png';
 
+// Contexts
+import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
+
 // Constants
 import { SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 
@@ -19,6 +23,7 @@ const Header = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { breadcrumb } = useBreadcrumb();
 
   const handleChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -34,7 +39,19 @@ const Header = () => {
 
   return (
     <header className="flex justify-between items-center h-36 pt-10 pb-14 pr-10">
-      <h4 className="text-xl font-semibold text-fill-text-dark">My course</h4>
+      <div>
+        {breadcrumb.map((item, index) => (
+          <span key={index}>
+            {index > 0 && ' / '}
+            <Link
+              className={`text-xl font-semibold ${item.active ? 'text-active-primary pointer-events-none' : 'text-fill-text-dark'}`}
+              href={item.href || '/'}
+            >
+              {item.title}
+            </Link>
+          </span>
+        ))}
+      </div>
       <div className="flex items-center gap-7">
         <Search onChange={handleChange} />
         <NotificationIcon className="cursor-not-allowed" />
