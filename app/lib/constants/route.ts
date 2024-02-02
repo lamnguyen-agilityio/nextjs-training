@@ -1,3 +1,4 @@
 export const ROUTE = {
-  COURSES: '/courses',
+  COURSE_LIST: '/courses',
+  COURSE_CREATE: '/courses/create',
 };

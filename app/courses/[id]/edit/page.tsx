@@ -28,12 +28,14 @@ const Page = async ({ params }: PageProps) => {
   }
 
   return (
-    <CourseForm
-      id={id}
-      categories={categoryOptions}
-      instructors={instructorOptions}
-      course={course}
-    />
+    <div className="pr-10">
+      <CourseForm
+        id={id}
+        categories={categoryOptions}
+        instructors={instructorOptions}
+        course={course}
+      />
+    </div>
   );
 };
 

@@ -68,13 +68,13 @@ const Detail = ({ lessons, course, instructor }: Props) => {
   useEffect(() => {
     if (course?.name) {
       updateBreadcrumb([
-        { title: 'My Course', href: ROUTE.COURSES },
-        { title: course?.name, href: ROUTE.COURSES, active: true },
+        { title: 'My Course', href: ROUTE.COURSE_LIST },
+        { title: course?.name, href: ROUTE.COURSE_LIST, active: true },
       ]);
     }
 
     return () => {
-      updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSES }]);
+      updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSE_LIST }]);
     };
   }, [course?.name, updateBreadcrumb]);
 

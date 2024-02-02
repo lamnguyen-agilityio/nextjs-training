@@ -146,7 +146,7 @@ export const getCourseDetailById = async (id: string) => {
 export const deleteCourse = async (id: string) => {
   await deleteEntity(ENTITY.COURSES, id);
 
-  revalidatePath(ROUTE.COURSES);
+  revalidatePath(ROUTE.COURSE_LIST);
 };
 
 export const getCourseById = async (id: string) => {
@@ -159,13 +159,13 @@ export const addCourse = async (data: Course) => {
 
   await addEntity(ENTITY.COURSES, { ...data, ...mockCourseDetail, createdAt });
 
-  revalidatePath(ROUTE.COURSES);
-  redirect(ROUTE.COURSES);
+  revalidatePath(ROUTE.COURSE_LIST);
+  redirect(ROUTE.COURSE_LIST);
 };
 
 export const editCourseById = async (id: string, data: Course) => {
   await updateEntity(ENTITY.COURSES, id, data);
 
-  revalidatePath(ROUTE.COURSES);
-  redirect(ROUTE.COURSES);
+  revalidatePath(ROUTE.COURSE_LIST);
+  redirect(ROUTE.COURSE_LIST);
 };
