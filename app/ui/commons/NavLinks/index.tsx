@@ -23,7 +23,7 @@ const sidebar = [
   {
     title: 'main menu',
     links: [
-      { name: 'Dashboard', href: '/', icon: HomeIcon },
+      { name: 'Dashboard', href: '/home', icon: HomeIcon },
       {
         name: 'eBook',
         href: '/ebook',
@@ -88,10 +88,12 @@ export default function NavLinks() {
                   'md:flex-none md:justify-start md:p-2 md:px-7',
                   {
                     'bg-active-primary text-background fill-background':
-                      pathname === link.href,
+                      pathname.includes(link.href),
                   },
                   {
-                    'text-fill-link fill-fill-link': pathname !== link.href,
+                    'text-fill-link fill-fill-link': !pathname.includes(
+                      link.href
+                    ),
                   }
                 )}
               >

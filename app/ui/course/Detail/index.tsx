@@ -1,9 +1,11 @@
 // Components
 import Tabs from '@/app/ui/commons/Tabs';
-import Overview from './Overview';
-import FAQ from './FAQ';
-import Announcement from './Announcement';
-import Lessons from './Lessons';
+import {
+  Announcement,
+  CourseFAQ,
+  CourseLessons,
+  CourseOverview,
+} from '@/app/ui/course';
 
 // Interfaces
 import { CourseDetail, CourseLesson, Instructor } from '@/app/lib/interfaces';
@@ -31,11 +33,11 @@ const Detail = ({ lessons, course, instructor }: Props) => {
     instructor && [
       {
         label: 'Overview',
-        content: <Overview overview={course.overview} />,
+        content: <CourseOverview overview={course.overview} />,
       },
       {
         label: 'FAQ',
-        content: <FAQ sections={course.faq} />,
+        content: <CourseFAQ sections={course.faq} />,
       },
       {
         label: 'Announcements',
@@ -67,7 +69,7 @@ const Detail = ({ lessons, course, instructor }: Props) => {
         </div>
       )}
       <div className="w-full sm:w-[30%]">
-        <Lessons lessons={lessons} />
+        <CourseLessons lessons={lessons} />
       </div>
     </main>
   );
