@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const NotificationIcon = (props: SVGProps<SVGSVGElement>) => {
+export const NotificationIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -28,5 +28,3 @@ const NotificationIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { NotificationIcon };

@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const CodeChallengesIcon = (props: SVGProps<SVGSVGElement>) => {
+export const CodeChallengesIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -32,5 +32,3 @@ const CodeChallengesIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { CodeChallengesIcon };

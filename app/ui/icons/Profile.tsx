@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const ProfileIcon = (props: SVGProps<SVGSVGElement>) => {
+export const ProfileIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -17,5 +17,3 @@ const ProfileIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { ProfileIcon };

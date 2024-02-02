@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const CommunityIcon = (props: SVGProps<SVGSVGElement>) => {
+export const CommunityIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -18,5 +18,3 @@ const CommunityIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { CommunityIcon };

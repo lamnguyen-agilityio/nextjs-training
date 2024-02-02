@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const LogoutIcon = (props: SVGProps<SVGSVGElement>) => {
+export const LogoutIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -18,5 +18,3 @@ const LogoutIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { LogoutIcon };

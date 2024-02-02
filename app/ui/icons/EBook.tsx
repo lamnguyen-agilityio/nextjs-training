@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const EBookIcon = (props: SVGProps<SVGSVGElement>) => {
+export const EBookIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="25"
@@ -22,5 +22,3 @@ const EBookIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { EBookIcon };

@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const ListViewIcon = (props: SVGProps<SVGSVGElement>) => (
+export const ListViewIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="15"
     height="15"
@@ -15,5 +15,3 @@ const ListViewIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-
-export { ListViewIcon };

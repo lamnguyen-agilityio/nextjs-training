@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const ArrowDownIcon = (props: SVGProps<SVGSVGElement>) => {
+export const ArrowDownIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="7"
@@ -13,5 +13,3 @@ const ArrowDownIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { ArrowDownIcon };
