@@ -1,8 +1,7 @@
 'use client';
 
 // Components
-import Dropdown from '@/app/ui/commons/Dropdown';
-import Button from '@/app/ui/commons/Button';
+import { Button, Dropdown } from '@/app/ui/commons';
 
 // Icons
 import { CardViewIcon, FilterIcon, ListViewIcon } from '@/app/ui/icons';

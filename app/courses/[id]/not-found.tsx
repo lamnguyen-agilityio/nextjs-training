@@ -1,4 +1,4 @@
-import NotFound from '@/app/ui/commons/NotFound';
+import { NotFound } from '@/app/ui/commons';
 
 const NotFoundComponent = () => (
   <NotFound link="/courses" title="Could not find the course." />

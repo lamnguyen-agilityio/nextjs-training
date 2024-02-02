@@ -1,8 +1,10 @@
+'use client';
+
 import { useState } from 'react';
 import clsx from 'clsx';
 
 // Components
-import Button from '@/app/ui/commons/Button';
+import { Button } from '@/app/ui/commons';
 import PageNumbers from './PageNumbers';
 
 // Constants

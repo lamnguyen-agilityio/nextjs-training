@@ -2,7 +2,7 @@
 import { ColumnProps, CourseBase, SortColumn } from '@/app/lib/interfaces';
 
 // Components
-import Table from '@/app/ui/commons/Table';
+import { Table } from '@/app/ui/commons';
 
 interface Props {
   columns: ColumnProps<CourseBase>[];

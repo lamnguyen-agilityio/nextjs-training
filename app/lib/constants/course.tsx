@@ -1,5 +1,5 @@
 // Components
-import AvatarWithName from '@/app/ui/commons/AvatarWithName';
+import { AvatarWithName } from '@/app/ui/commons';
 
 // Interfaces
 import { ColumnProps, CourseBase, Category } from '@/app/lib/interfaces';

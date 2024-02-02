@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // Components
-import NavLinks from '@/app/ui/commons/NavLinks';
+import { NavLinks } from '@/app/ui/commons';
 
 // Images
 import logo from '@/public/images/logo.png';

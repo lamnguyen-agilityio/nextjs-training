@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-import { FC } from 'react';
 
 // Components
-import Button from '@/app/ui/commons/Button';
+import { Button } from '@/app/ui/commons';
 
 interface Props {
   currentPage: number;
@@ -12,13 +11,13 @@ interface Props {
   onPageChange: (page: number) => void;
 }
 
-const PageNumbers: FC<Props> = ({
+const PageNumbers = ({
   currentPage,
   totalPages,
   maxPageNumbersToShow,
   disabled,
   onPageChange,
-}) => {
+}: Props) => {
   let startPage = Math.max(
     1,
     currentPage - Math.floor(maxPageNumbersToShow / 2)
