@@ -5,20 +5,30 @@ import { notFound } from 'next/navigation';
 const CourseDetail = dynamic(() => import('@/app/ui/course/Detail'));
 
 // Utils
-import { getInstructorById, getCourseDetailById } from '@/app/lib/utils';
+import {
+  getCourseDetailById,
+  getLessonAndInstructorDetails,
+} from '@/app/lib/utils';
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
-
-  const { course, lessons } = await getCourseDetailById(id);
-  const instructor = course && (await getInstructorById(course.instructorId));
+  const course = await getCourseDetailById(id);
 
   if (!course) {
     return notFound();
   }
 
+  const courseDetail = await getLessonAndInstructorDetails(
+    course.lessonId,
+    course.instructorId
+  );
+
   return (
-    <CourseDetail course={course} instructor={instructor} lessons={lessons} />
+    <CourseDetail
+      course={course}
+      instructor={courseDetail?.instructor}
+      lessons={courseDetail?.lessons}
+    />
   );
 };
 
