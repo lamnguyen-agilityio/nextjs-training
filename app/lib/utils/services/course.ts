@@ -10,6 +10,8 @@ import {
   deleteEntity,
   getEntities,
   getEntityById,
+  getInstructorById,
+  getLessonById,
   updateEntity,
 } from '.';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -134,13 +136,9 @@ export const getLessonsByCourseId = async (
 };
 
 export const getCourseDetailById = async (id: string) => {
-  // TODO: Update the courses, instructors entity by using constant
-  const [course, lessons] = await Promise.all([
-    getEntityById<CourseDetail>(ENTITY.COURSES, id),
-    getLessonsByCourseId(id),
-  ]);
+  const course = getEntityById<CourseDetail>(ENTITY.COURSES, id);
 
-  return { course, lessons };
+  return course;
 };
 
 export const deleteCourse = async (id: string) => {
@@ -168,4 +166,16 @@ export const editCourseById = async (id: string, data: Course) => {
 
   revalidatePath(ROUTE.COURSES);
   redirect(ROUTE.COURSES);
+};
+
+export const getLessonAndInstructorDetails = async (
+  lessonId: string,
+  instructorId: string
+) => {
+  const [lessons, instructor] = await Promise.all([
+    getLessonById(lessonId),
+    getInstructorById(instructorId),
+  ]);
+
+  return { lessons, instructor };
 };

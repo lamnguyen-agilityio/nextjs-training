@@ -13,6 +13,7 @@ export interface Course {
 export interface CourseDetail extends Omit<Course, 'categoryId'> {
   announcement: string;
   createdAt: Timestamp;
+  lessonId: string;
   faq: Section[];
   instructorName: string;
   instructorAvatar: string;

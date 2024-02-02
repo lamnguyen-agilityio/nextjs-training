@@ -308,4 +308,5 @@ export const courseDetail = {
     },
   ],
   src: 'https://www.youtube.com/embed/E7wJTI-1dvQ',
+  lessonId: 'pr6XqNaxND4Z7AyKTsoP',
 };

@@ -24,7 +24,7 @@ import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
 import { ROUTE } from '@/app/lib/constants';
 
 interface Props {
-  lessons: CourseLesson[];
+  lessons?: CourseLesson[];
   course?: CourseDetail;
   instructor?: Instructor;
 }
@@ -94,7 +94,7 @@ const Detail = ({ lessons, course, instructor }: Props) => {
         </div>
       )}
       <div className="w-full sm:w-[30%]">
-        <CourseLessons lessons={lessons} />
+        <CourseLessons lessons={lessons || []} />
       </div>
     </main>
   );
