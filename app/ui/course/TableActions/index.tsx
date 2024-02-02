@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 // Components
 import { Button, Dropdown } from '@/app/ui/commons';
 
@@ -8,6 +10,9 @@ import { CardViewIcon, FilterIcon, ListViewIcon } from '@/app/ui/icons';
 
 // Interfaces
 import { Option } from '@/app/lib/interfaces';
+
+// Constants
+import { ROUTE } from '@/app/lib/constants';
 
 interface Props {
   isGridView: boolean;
@@ -32,11 +37,6 @@ const TableActions = ({
     onToggleView(!isGridView);
   };
 
-  // TODO: Implement filter course
-  const handleFilter = () => {
-    console.log('Filter');
-  };
-
   return (
     <div className="flex gap-3">
       {categoryOptions.length && (
@@ -47,9 +47,12 @@ const TableActions = ({
           defaultLabel={defaultLabel}
         />
       )}
-      <Button type="button" onClick={handleFilter}>
+      <Button type="button" disabled>
         <FilterIcon />
       </Button>
+      <Link href={ROUTE.COURSE_CREATE}>
+        <Button type="button">+</Button>
+      </Link>
       <div className="flex">
         <Button
           type="button"

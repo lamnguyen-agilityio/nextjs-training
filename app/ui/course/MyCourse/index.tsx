@@ -96,7 +96,7 @@ const MyCourse = ({
   };
 
   useEffect(() => {
-    updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSES }]);
+    updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSE_LIST }]);
   }, [updateBreadcrumb]);
 
   return (
