@@ -12,7 +12,7 @@ type Props<T> = {
 };
 
 const Table = <T,>({ data, columns, defaultSort, onSort }: Props<T>) => (
-  <table className="w-full">
+  <table className="w-full table-fixed">
     <TableHeaders columns={columns} defaultSort={defaultSort} onSort={onSort} />
     <TableRows columns={columns} data={data} />
   </table>
