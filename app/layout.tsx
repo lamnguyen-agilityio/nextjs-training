@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { Metadata } from 'next';
 
 // Components
@@ -31,7 +31,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
               <SideNav />
             </div>
             <div className="flex-grow">
-              <Header />
+              <Suspense>
+                <Header />
+              </Suspense>
               {children}
             </div>
           </main>
