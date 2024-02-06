@@ -21,7 +21,7 @@ import { convertTimestampToDate, getRelativeTime } from '@/app/lib/utils';
 import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
 
 // Constants
-import { ROUTE } from '@/app/lib/constants';
+import { ROUTES } from '@/app/lib/constants';
 
 interface Props {
   lessons?: CourseLesson[];
@@ -68,13 +68,13 @@ const Detail = ({ lessons, course, instructor }: Props) => {
   useEffect(() => {
     if (course?.name) {
       updateBreadcrumb([
-        { title: 'My Course', href: ROUTE.COURSE_LIST },
-        { title: course?.name, href: ROUTE.COURSE_LIST, active: true },
+        { title: 'My Course', href: ROUTES.COURSE_LIST },
+        { title: course?.name, href: ROUTES.COURSE_LIST, active: true },
       ]);
     }
 
     return () => {
-      updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSE_LIST }]);
+      updateBreadcrumb([{ title: 'My Course', href: ROUTES.COURSE_LIST }]);
     };
   }, [course?.name, updateBreadcrumb]);
 

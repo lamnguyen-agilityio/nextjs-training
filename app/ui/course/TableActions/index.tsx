@@ -12,7 +12,7 @@ import { CardViewIcon, FilterIcon, ListViewIcon } from '@/app/ui/icons';
 import { Option } from '@/app/lib/interfaces';
 
 // Constants
-import { ROUTE } from '@/app/lib/constants';
+import { ROUTES } from '@/app/lib/constants';
 
 interface Props {
   isGridView: boolean;
@@ -50,7 +50,7 @@ const TableActions = ({
       <Button type="button" disabled>
         <FilterIcon />
       </Button>
-      <Link href={ROUTE.COURSE_CREATE}>
+      <Link href={ROUTES.COURSE_CREATE}>
         <Button type="button">+</Button>
       </Link>
       <div className="flex">
