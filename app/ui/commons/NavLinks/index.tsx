@@ -25,11 +25,17 @@ const sidebar = [
     links: [
       { name: 'Dashboard', href: '/home', icon: HomeIcon },
       {
-        name: 'eBook',
-        href: '/ebook',
+        name: 'Categories',
+        href: '/categories',
         icon: EBookIcon,
+        active: true,
       },
-      { name: 'My courses', href: '/courses', icon: MyCoursesIcon },
+      {
+        name: 'My courses',
+        href: '/courses',
+        icon: MyCoursesIcon,
+        active: true,
+      },
       {
         name: 'Purchase Course',
         href: '/purchase-course',
@@ -78,13 +84,13 @@ export default function NavLinks() {
             <div
               key={link.name}
               className={clsx({
-                'cursor-not-allowed': pathname !== link.href,
+                'cursor-not-allowed': pathname !== link.href && !link.active,
               })}
             >
               <Link
                 href={link.href}
                 className={clsx(
-                  'flex h-14 grow items-center justify-center gap-5 p-3 rounded-md pointer-events-none',
+                  'flex h-14 grow items-center justify-center gap-5 p-3 rounded-md',
                   'md:flex-none md:justify-start md:p-2 md:px-7',
                   {
                     'bg-active-primary text-background fill-background':
@@ -94,6 +100,10 @@ export default function NavLinks() {
                     'text-fill-link fill-fill-link': !pathname.includes(
                       link.href
                     ),
+                  },
+                  {
+                    'pointer-events-none':
+                      !pathname.includes(link.href) && !link.active,
                   }
                 )}
               >
