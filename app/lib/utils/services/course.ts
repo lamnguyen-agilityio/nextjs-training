@@ -31,7 +31,7 @@ import {
 import { database } from '@/app/lib/firebase/config';
 
 // Constants
-import { ENTITY, ROUTE } from '@/app/lib/constants';
+import { ENTITY, ROUTES } from '@/app/lib/constants';
 
 // Mocks data
 import { courseDetail } from '@/mocks';
@@ -90,51 +90,6 @@ export const getCourseListing = async ({
   };
 };
 
-export const getLessonsByCourseId = async (
-  id: string
-): Promise<CourseLesson[]> => {
-  const baseQuery = query(
-    collection(database, ENTITY.LESSONS),
-    where('courseId', '==', id)
-  );
-
-  const querySnapshot = await getDocs(baseQuery);
-
-  const entities: LessonResponse[] = [];
-
-  querySnapshot.forEach((doc) => {
-    entities.push({
-      id: doc.id,
-      ...doc.data(),
-    });
-  });
-
-  if (!entities.length) {
-    return [];
-  }
-
-  // Entities is only 1 items
-  // Get lessons from first value
-  const lessons =
-    entities[0].data &&
-    entities[0].data.map((item: CourseLesson) => {
-      const { id, title, list } = item;
-      let totalTime = 0;
-
-      return {
-        id: id,
-        title: title,
-        list: list.map((itemList: Lesson) => {
-          totalTime += itemList.time;
-          return itemList;
-        }),
-        totalTime,
-      };
-    });
-
-  return lessons as CourseLesson[];
-};
-
 export const getCourseDetailById = async (id: string) => {
   const course = getEntityById<CourseDetail>(ENTITY.COURSES, id);
 
@@ -144,7 +99,7 @@ export const getCourseDetailById = async (id: string) => {
 export const deleteCourse = async (id: string) => {
   await deleteEntity(ENTITY.COURSES, id);
 
-  revalidatePath(ROUTE.COURSE_LIST);
+  revalidatePath(ROUTES.COURSE_LIST);
 };
 
 export const getCourseById = async (id: string) => {
@@ -157,15 +112,15 @@ export const addCourse = async (data: Course) => {
 
   await addEntity(ENTITY.COURSES, { ...data, ...mockCourseDetail, createdAt });
 
-  revalidatePath(ROUTE.COURSE_LIST);
-  redirect(ROUTE.COURSE_LIST);
+  revalidatePath(ROUTES.COURSE_LIST);
+  redirect(ROUTES.COURSE_LIST);
 };
 
 export const editCourseById = async (id: string, data: Course) => {
   await updateEntity(ENTITY.COURSES, id, data);
 
-  revalidatePath(ROUTE.COURSE_LIST);
-  redirect(ROUTE.COURSE_LIST);
+  revalidatePath(ROUTES.COURSE_LIST);
+  redirect(ROUTES.COURSE_LIST);
 };
 
 export const getLessonAndInstructorDetails = async (
@@ -177,5 +132,20 @@ export const getLessonAndInstructorDetails = async (
     getInstructorById(instructorId),
   ]);
 
-  return { lessons, instructor };
+  const convertedLesson = lessons?.map((lesson) => {
+    const { id, title, list } = lesson;
+    let totalTime = 0;
+
+    return {
+      id: id,
+      title: title,
+      list: list.map((itemList: Lesson) => {
+        totalTime += itemList.time;
+        return itemList;
+      }),
+      totalTime,
+    };
+  });
+
+  return { lessons: convertedLesson, instructor };
 };

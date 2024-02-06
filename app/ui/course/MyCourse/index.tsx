@@ -14,7 +14,7 @@ import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
 import { CourseBase, Option, SortColumn } from '@/app/lib/interfaces';
 
 // Constants
-import { COLUMNS, ROUTE, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
+import { COLUMNS, ROUTES, SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 
 interface Props {
   totalItems: number;
@@ -96,7 +96,7 @@ const MyCourse = ({
   };
 
   useEffect(() => {
-    updateBreadcrumb([{ title: 'My Course', href: ROUTE.COURSE_LIST }]);
+    updateBreadcrumb([{ title: 'My Course', href: ROUTES.COURSE_LIST }]);
   }, [updateBreadcrumb]);
 
   return (

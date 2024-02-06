@@ -34,7 +34,7 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
   {
     key: 'description',
     title: 'Description',
-    width: 35,
+    width: 30,
     sortable: true,
     render: (_, row) => (
       <p className="overflow-hidden whitespace-nowrap text-ellipsis">
@@ -45,7 +45,7 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
   {
     key: 'action',
     title: 'Action',
-    width: 5,
+    width: 10,
     render: (_, row) => <GroupActions id={row.id} />,
   },
 ];
