@@ -25,7 +25,7 @@ const Card = ({ id, description, course, instructor }: Props) => {
           alt="angular"
           width={24}
           height={28}
-          className="rounded-full w-auto h-auto"
+          className="rounded-full w-auto h-7"
         />
         <GroupActions id={id} />
       </div>
