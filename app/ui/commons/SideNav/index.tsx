@@ -9,7 +9,7 @@ import logo from '@/public/images/logo.png';
 
 const SideNav = () => {
   return (
-    <div className="flex h-full flex-col px-3 py-10 md:px-10">
+    <div className="flex flex-col px-3 pt-10 md:px-10">
       <Link href="/">
         <Image priority src={logo} width={213} height={46} alt="e-studies" />
       </Link>

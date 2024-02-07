@@ -81,7 +81,7 @@ const Detail = ({ lessons, course, instructor }: Props) => {
   return (
     <main className="flex justify-start gap-x-8 pr-10">
       {course && (
-        <div className="w-full sm:w-[70%]">
+        <div className="w-full sm:w-[70%] pb-3">
           <iframe
             src={course.src}
             frameBorder="0"
