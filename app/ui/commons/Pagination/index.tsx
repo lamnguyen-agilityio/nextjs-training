@@ -38,9 +38,9 @@ const Pagination = <T,>({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startRecords = (currentPage - 1) * itemsPerPage + 1;
   const endRecords =
-    currentPage * itemsPerPage + 1 > totalItems
+    currentPage * itemsPerPage > totalItems
       ? totalItems
-      : currentPage * itemsPerPage + 1;
+      : currentPage * itemsPerPage;
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {

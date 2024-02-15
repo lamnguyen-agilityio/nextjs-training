@@ -26,7 +26,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         suppressHydrationWarning
       >
         <BreadcrumbProvider>
-          <main className="h-screen flex flex-col bg-fill-background md:flex-row md:overflow-hidden">
+          <main className="flex flex-col bg-fill-background md:flex-row">
             <div className="w-full flex-none md:w-80">
               <SideNav />
             </div>

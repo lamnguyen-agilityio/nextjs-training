@@ -38,13 +38,13 @@ const TableHeaders = <T,>({ columns, defaultSort, onSort }: Props<T>) => {
           <th
             key={`headCell-${index}`}
             scope="col"
-            className={`inline-block px-3 py-5 font-medium ${column.sortable && 'cursor-pointer'}`}
+            className={`inline-block px-3 py-5 font-medium capitalize ${column.sortable && 'cursor-pointer'}`}
             style={{
               width: `${column.width}%`,
             }}
             onClick={() => column.sortable && handleSort(column.key as keyof T)}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex gap-5 items-center">
               {column.title}
               {column.sortable && (
                 <SortIcon
