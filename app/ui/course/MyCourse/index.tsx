@@ -100,7 +100,7 @@ const MyCourse = ({
   }, [updateBreadcrumb]);
 
   return (
-    <div className="pr-10 flex flex-col gap-5">
+    <div className="pr-10 flex flex-col gap-5 pb-5">
       <div className="flex items-center justify-between">
         <h5 className="text-lg text-fill-dark-link">
           My Courses for
@@ -117,7 +117,7 @@ const MyCourse = ({
         />
       </div>
       {isGridView ? (
-        <div className="flex flex-wrap items-center gap-10">
+        <div className="flex flex-wrap items-center justify-center gap-10">
           {data.map((item) => (
             <div className="w-[255px]" key={item.id}>
               <CourseCard
