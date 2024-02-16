@@ -14,7 +14,11 @@ interface Props {
 }
 
 const GroupActions = ({ id }: Props) => {
-  const deleteCourseWithId = deleteCourse.bind(null, id);
+  const handleDeleteCourse = async () => {
+    if (confirm('Delete this course?')) {
+      await deleteCourse(id);
+    }
+  };
 
   return (
     <Popover
@@ -24,22 +28,15 @@ const GroupActions = ({ id }: Props) => {
           <Link className="p-2 bg-fill-info" href={`/courses/${id}/edit`}>
             Edit
           </Link>
-          <form
-            action={async () => {
-              if (confirm('Delete this course?')) {
-                await deleteCourseWithId();
-              }
-            }}
+          <Button
+            type="submit"
+            variant="error"
+            buttonSize="auto"
+            className="p-2 bg-fill-warning"
+            onClick={handleDeleteCourse}
           >
-            <Button
-              type="submit"
-              variant="error"
-              buttonSize="auto"
-              className="p-2 bg-fill-warning"
-            >
-              Delete
-            </Button>
-          </form>
+            Delete
+          </Button>
         </div>
       }
     />
