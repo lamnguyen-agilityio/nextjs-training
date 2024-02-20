@@ -1,17 +1,25 @@
 'use client';
 
-import { ColumnProps, SortColumn } from '@/app/lib/interfaces/table';
+// Components
 import TableHeaders from './TableHeaders';
 import TableRows from './TableRows';
 
-type Props<T> = {
+// Interfaces
+import { Entity, SortColumn, ColumnProps } from '@/app/lib/interfaces';
+
+type Props<T extends Entity> = {
   columns: Array<ColumnProps<T>>;
   data: T[];
   defaultSort?: SortColumn<T>;
   onSort: (value: SortColumn<T>) => void;
 };
 
-const Table = <T,>({ data, columns, defaultSort, onSort }: Props<T>) => (
+const Table = <T extends Entity>({
+  data,
+  columns,
+  defaultSort,
+  onSort,
+}: Props<T>) => (
   <table className={`w-full ${data.length && 'table-fixed'}`}>
     <TableHeaders columns={columns} defaultSort={defaultSort} onSort={onSort} />
     <TableRows columns={columns} data={data} />

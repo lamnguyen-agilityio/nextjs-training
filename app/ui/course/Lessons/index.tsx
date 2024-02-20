@@ -36,7 +36,7 @@ const convertSectionsToJSX = (
     const sectionContent = (
       <div className="flex flex-col gap-2">
         {section.list.map((item, itemIndex) => (
-          <div key={itemIndex} className="flex gap-2">
+          <div key={item.name} className="flex gap-2">
             <Checkbox
               checked={item.isDone}
               onChange={(value) => console.log(value)}

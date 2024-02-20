@@ -23,11 +23,7 @@ import {
 import { database } from '@/app/lib/firebase/config';
 
 // Interfaces
-import { Response } from '@/app/lib/interfaces';
-
-interface Entity {
-  id: string;
-}
+import { Response, Entity } from '@/app/lib/interfaces';
 
 export interface EntitiesParams {
   collectionName: string;

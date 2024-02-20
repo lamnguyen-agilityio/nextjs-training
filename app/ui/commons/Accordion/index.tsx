@@ -48,7 +48,7 @@ const Accordion = ({ type = 'primary', sections, onSetActive }: Props) => {
 
         return (
           <div
-            key={index}
+            key={section.title.toString()}
             className={`${type === 'primary' ? 'border-b' : 'mb-3 bg-background'}`}
           >
             <div

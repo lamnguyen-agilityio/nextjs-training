@@ -41,7 +41,7 @@ const Header = () => {
     <header className="flex justify-between items-center h-36 pt-10 pb-14 pr-10">
       <div>
         {breadcrumb.map((item, index) => (
-          <span key={index}>
+          <span key={item.title}>
             {index > 0 && ' / '}
             <Link
               className={`text-xl font-semibold ${item.active ? 'text-active-primary pointer-events-none' : 'text-fill-text-dark'}`}
