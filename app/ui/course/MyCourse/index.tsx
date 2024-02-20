@@ -61,12 +61,12 @@ const MyCourse = ({
     const params = new URLSearchParams(searchParams);
 
     if (firstItem) {
-      params.set(SEARCH_KEY_PARAMS.END_BEFORE_VALUE, firstItem.name);
+      params.set(SEARCH_KEY_PARAMS.END_BEFORE_VALUE, firstItem.name.text);
       params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
     }
 
     if (lastItem) {
-      params.set(SEARCH_KEY_PARAMS.START_AFTER_VALUE, lastItem.name);
+      params.set(SEARCH_KEY_PARAMS.START_AFTER_VALUE, lastItem.name.text);
       params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
     }
 
@@ -124,12 +124,12 @@ const MyCourse = ({
                 id={item.id}
                 description={item.description}
                 course={{
-                  name: item.name,
-                  image: item.logo,
+                  name: item.name.text,
+                  image: item.name.src,
                 }}
                 instructor={{
-                  name: item.instructorName,
-                  image: item.instructorAvatar,
+                  name: item.instructor.text,
+                  image: item.instructor.src,
                 }}
               />
             </div>

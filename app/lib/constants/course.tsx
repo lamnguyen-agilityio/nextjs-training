@@ -1,11 +1,8 @@
-// Components
-import { AvatarWithName } from '@/app/ui/commons';
-
 // Interfaces
 import { ColumnProps, CourseBase, Category } from '@/app/lib/interfaces';
 
-// Icons
-import { GroupActions } from '@/app/ui/course';
+// Enums
+import { TableCells } from '@/app/lib/enums';
 
 export const COURSES_PER_PAGE = 10;
 export const COLUMNS: ColumnProps<CourseBase>[] = [
@@ -14,39 +11,32 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
     title: 'course name',
     width: 20,
     sortable: true,
-    render: (_, row) => (
-      <AvatarWithName
-        link={`courses/${row.id}`}
-        src={row.logo}
-        name={row.name}
-      />
-    ),
+    type: TableCells.Link,
   },
-  { key: 'categoryName', title: 'category', width: 20 },
+  {
+    key: 'categoryName',
+    title: 'category',
+    width: 20,
+    type: TableCells.String,
+  },
   {
     key: 'instructor',
     title: 'instructor',
     width: 20,
-    render: (_, row) => (
-      <AvatarWithName src={row.instructorAvatar} name={row.instructorName} />
-    ),
+    type: TableCells.Link,
   },
   {
     key: 'description',
     title: 'Description',
     width: 30,
     sortable: true,
-    render: (_, row) => (
-      <p className="overflow-hidden whitespace-nowrap text-ellipsis">
-        {row.description}
-      </p>
-    ),
+    type: TableCells.String,
   },
   {
     key: 'action',
     title: 'Action',
     width: 10,
-    render: (_, row) => <GroupActions id={row.id} />,
+    type: TableCells.Action,
   },
 ];
 export const SEARCH_KEY_PARAMS = {

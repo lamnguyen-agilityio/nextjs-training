@@ -6,4 +6,5 @@ export * from './category';
 export * from './section';
 export * from './api';
 export * from './route';
+export * from './link';
 export * from './entity';

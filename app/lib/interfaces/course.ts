@@ -1,13 +1,14 @@
 import { Timestamp } from 'firebase/firestore';
-import { Section } from '.';
+import { Link, Section } from '.';
 
 export interface Course {
   id: string;
   categoryId: string;
   description: string;
   instructorId: string;
-  logo: string;
   name: string;
+  instructor: Link;
+  logo: string;
 }
 
 export interface CourseDetail extends Omit<Course, 'categoryId'> {
@@ -22,18 +23,9 @@ export interface CourseDetail extends Omit<Course, 'categoryId'> {
 }
 
 export interface CourseBase
-  extends Omit<
-    Course,
-    | 'announcement'
-    | 'categoryId'
-    | 'createdAt'
-    | 'faq'
-    | 'instructorId'
-    | 'overview'
-  > {
-  categoryName: string;
-  instructorName: string;
-  instructorAvatar: string;
+  extends Omit<Course, 'categoryId' | 'instructorId' | 'name' | 'logo'> {
+  action: { id: string };
+  name: Link;
 }
 
 export interface CourseOverview {
