@@ -34,9 +34,9 @@ const TableHeaders = <T,>({ columns, defaultSort, onSort }: Props<T>) => {
   return (
     <thead className="text-left text-base font-semibold text-active-text-dark">
       <tr>
-        {columns.map((column, index) => (
+        {columns.map((column) => (
           <th
-            key={`headCell-${index}`}
+            key={column.key}
             scope="col"
             className={`inline-block px-3 py-5 font-medium capitalize ${column.sortable && 'cursor-pointer'}`}
             style={{

@@ -23,7 +23,7 @@ const Tabs = ({ tabs }: Props) => {
 
           return (
             <div
-              key={index}
+              key={tab.label}
               className={clsx(
                 'cursor-pointer p-3 mr-7 transition-all transform',
                 { 'pl-0': index === 0 },

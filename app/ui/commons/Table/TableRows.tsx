@@ -1,12 +1,12 @@
 // Interfaces
-import { ColumnProps } from '@/app/lib/interfaces/table';
+import { Entity, ColumnProps } from '@/app/lib/interfaces';
 
-type Props<T> = {
+type Props<T extends Entity> = {
   columns: Array<ColumnProps<T>>;
   data?: T[];
 };
 
-const TableRows = <T,>({ columns, data = [] }: Props<T>) => {
+const TableRows = <T extends Entity>({ columns, data = [] }: Props<T>) => {
   const rows = !data.length ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-3">
@@ -14,20 +14,20 @@ const TableRows = <T,>({ columns, data = [] }: Props<T>) => {
       </td>
     </tr>
   ) : (
-    data.map((row, indexData) => {
+    data.map((row) => {
       return (
         <tr
-          key={`row-${indexData}`}
+          key={row.id}
           className="w-full border-b-4 border-fill-background py-3 text-sm text-fill-text-dark font-medium"
         >
-          {columns.map((column, indexColumns) => {
+          {columns.map((column) => {
             const value = column.render
               ? column.render(column, row as T)
               : (row[column.key as keyof typeof row] as string);
 
             return (
               <td
-                key={`cell-${indexColumns}`}
+                key={column.key}
                 className="inline-block box-border px-3 py-5"
                 style={{
                   width: `${column.width}%`,

@@ -11,7 +11,7 @@ interface Props extends HTMLProps<HTMLButtonElement> {
   onClick?: () => void;
 }
 
-const Button: React.FC<Props> = ({
+const Button = ({
   type = 'button',
   variant = 'primary',
   buttonSize = 'medium',
@@ -20,7 +20,7 @@ const Button: React.FC<Props> = ({
   children,
   onClick = () => {},
   ...props
-}) => (
+}: Props) => (
   <button
     type={type}
     className={clsx(

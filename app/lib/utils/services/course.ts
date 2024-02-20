@@ -14,21 +14,15 @@ import {
   getLessonById,
   updateEntity,
 } from '.';
-import { collection, getDocs, query, where } from 'firebase/firestore';
 
 // Interfaces
 import {
   Category,
   Course,
   CourseDetail,
-  CourseLesson,
   Instructor,
   Lesson,
-  LessonResponse,
 } from '@/app/lib/interfaces';
-
-// Database
-import { database } from '@/app/lib/firebase/config';
 
 // Constants
 import { ENTITY, ROUTES } from '@/app/lib/constants';

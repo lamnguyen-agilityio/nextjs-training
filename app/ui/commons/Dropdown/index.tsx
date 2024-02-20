@@ -16,13 +16,13 @@ interface Props {
   disabled?: boolean;
 }
 
-const Dropdown: React.FC<Props> = ({
+const Dropdown = ({
   options,
   onChange,
   label,
   defaultLabel = '',
   disabled = false,
-}) => {
+}: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(
     defaultLabel || null

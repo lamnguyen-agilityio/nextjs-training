@@ -1,5 +1,5 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": ["eslint:recommended", "plugin:react/recommended", "next/core-web-vitals"],
   "rules": {
     "react/jsx-filename-extension": [
       "warn",
@@ -13,6 +13,8 @@
     "no-multi-spaces": "error",
     "space-in-parens": "error",
     "no-multiple-empty-lines": "error",
-    "eol-last": "error"
+    "eol-last": "error",
+    "react/no-array-index-key": "error",
+    "no-unused-vars": "off"
   }
 }
