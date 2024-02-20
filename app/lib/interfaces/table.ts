@@ -1,10 +1,13 @@
 import { ReactElement } from 'react';
 
+// Enums
+import { Cells } from '@/app/lib/enums';
+
 export interface ColumnProps<T> {
   key: string;
   title: string | ReactElement;
   sortable?: boolean;
-  render?: (column: ColumnProps<T>, item: T) => ReactElement;
+  type: Cells;
   width?: number;
 }
 

@@ -1,7 +1,13 @@
+// Components
+import TableCell from './TableCell';
+
 // Interfaces
 import { Entity, ColumnProps } from '@/app/lib/interfaces';
 
-type Props<T extends Entity> = {
+// Enums
+import { TableCells } from '@/app/lib/enums';
+
+type Props<T> = {
   columns: Array<ColumnProps<T>>;
   data?: T[];
 };
@@ -21,10 +27,6 @@ const TableRows = <T extends Entity>({ columns, data = [] }: Props<T>) => {
           className="w-full border-b-4 border-fill-background py-3 text-sm text-fill-text-dark font-medium"
         >
           {columns.map((column) => {
-            const value = column.render
-              ? column.render(column, row as T)
-              : (row[column.key as keyof typeof row] as string);
-
             return (
               <td
                 key={column.key}
@@ -33,7 +35,10 @@ const TableRows = <T extends Entity>({ columns, data = [] }: Props<T>) => {
                   width: `${column.width}%`,
                 }}
               >
-                {value}
+                <TableCell
+                  type={column.type as TableCells.String}
+                  value={row[column.key as keyof typeof row] as string}
+                />
               </td>
             );
           })}

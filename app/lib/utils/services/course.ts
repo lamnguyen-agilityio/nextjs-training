@@ -70,11 +70,17 @@ export const getCourseListing = async ({
     return {
       id,
       description,
-      logo,
-      name,
-      categoryName: category ? category.name : '',
-      instructorName: instructor ? instructor.name : '',
-      instructorAvatar: instructor ? instructor.avatar : '',
+      name: {
+        text: name,
+        src: logo,
+        href: `courses/${id}`,
+      },
+      categoryName: category?.name || '',
+      instructor: {
+        text: instructor?.name || '',
+        src: instructor?.avatar || '',
+      },
+      action: { id },
     };
   });
 
