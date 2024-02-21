@@ -23,7 +23,7 @@ import {
 import { database } from '@/app/lib/firebase/config';
 
 // Interfaces
-import { Response, Entity } from '@/app/lib/interfaces';
+import { Response, Entity, Documents } from '@/app/lib/interfaces';
 
 export interface EntitiesParams {
   collectionName: string;
@@ -170,4 +170,19 @@ export const deleteEntity = async (
 ): Promise<void> => {
   const entityRef = doc(database, collectionName, entityId);
   await deleteDoc(entityRef);
+};
+
+export const getData = async (resource: string): Promise<Documents> => {
+  const response = await fetch(`${process.env.API_URL}/${resource}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    return {} as Documents;
+  }
+
+  return response.json();
 };

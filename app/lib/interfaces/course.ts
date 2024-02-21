@@ -1,4 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
 import { Link, Section } from '.';
 
 export interface Course {
@@ -11,13 +10,12 @@ export interface Course {
   logo: string;
 }
 
-export interface CourseDetail extends Omit<Course, 'categoryId'> {
+export interface CourseDetail
+  extends Omit<Course, 'categoryId' | 'instructor'> {
   announcement: string;
-  createdAt: Timestamp;
+  createdAt: Date;
   lessonId: string;
   faq: Section[];
-  instructorName: string;
-  instructorAvatar: string;
   src: string;
   overview: CourseOverview[];
 }
