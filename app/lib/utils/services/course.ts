@@ -8,6 +8,7 @@ import {
   EntitiesParams,
   addEntity,
   deleteEntity,
+  getData,
   getEntities,
   getEntityById,
   getInstructorById,
@@ -17,10 +18,10 @@ import {
 
 // Interfaces
 import {
-  Category,
   Course,
   CourseDetail,
-  Instructor,
+  DocumentResponse,
+  FirestoreQuery,
   Lesson,
 } from '@/app/lib/interfaces';
 
@@ -29,6 +30,7 @@ import { ENTITY, ROUTES } from '@/app/lib/constants';
 
 // Mocks data
 import { courseDetail } from '@/mocks';
+import { CategoryConverter, CourseConverter, InstructorConverter } from '..';
 
 interface CourseParam extends Omit<EntitiesParams, 'collectionName'> {
   orderField: keyof Course;
@@ -38,56 +40,66 @@ interface CourseParam extends Omit<EntitiesParams, 'collectionName'> {
  * Fetches course listing data including categories and instructors.
  * @returns A Promise containing an array of formatted course listings and the total count.
  */
-export const getCourseListing = async ({
+export const getCountCourseListing = async ({
   orderField,
   direction,
   startAfterValue,
   endBeforeValue,
   filter,
 }: CourseParam) => {
-  const [courses, categories, instructors] = await Promise.all([
-    getEntities<Course>({
-      collectionName: ENTITY.COURSES,
-      orderField,
-      direction,
-      startAfterValue,
-      endBeforeValue,
-      filter,
-    }),
-    getEntities<Category>({ collectionName: ENTITY.CATEGORIES }),
-    getEntities<Instructor>({ collectionName: ENTITY.INSTRUCTORS }),
-  ]);
+  const courses = await getEntities<Course>({
+    collectionName: ENTITY.COURSES,
+    orderField,
+    direction,
+    startAfterValue,
+    endBeforeValue,
+    filter,
+  });
 
-  const courseListing = courses.data.map((course) => {
-    const { id, categoryId, instructorId, description, logo, name } = course;
-    const category = categories.data.find(
+  return courses.count;
+};
+
+export const getCourseListing = async (query: FirestoreQuery) => {
+  const [courses, categories, instructors] = await Promise.all([
+    getCourses(query),
+    getData(ENTITY.CATEGORIES),
+    getData(ENTITY.INSTRUCTORS),
+  ]);
+  const convertedCategories = categories.documents.map((doc) =>
+    CategoryConverter.convertDocumentToCategory(doc)
+  );
+  const convertedInstructors = instructors.documents.map((doc) =>
+    InstructorConverter.convertDocumentToInstructor(doc)
+  );
+
+  const courseListing = courses.map((course) => {
+    const { categoryId, instructorId, name, logo, id } = course;
+    const category = convertedCategories.find(
       (category) => category.id === categoryId
     );
-    const instructor = instructors.data.find(
+    const instructor = convertedInstructors.find(
       (instructor) => instructor.id === instructorId
     );
 
     return {
-      id,
-      description,
-      name: {
-        text: name,
-        src: logo,
-        href: `courses/${id}`,
-      },
+      ...course,
       categoryName: category?.name || '',
       instructor: {
         text: instructor?.name || '',
         src: instructor?.avatar || '',
       },
-      action: { id },
+      name: {
+        text: name,
+        src: logo,
+        href: `courses/${id}`,
+      },
+      action: {
+        id,
+      },
     };
   });
 
-  return {
-    data: courseListing,
-    count: courses.count,
-  };
+  return courseListing;
 };
 
 export const getCourseDetailById = async (id: string) => {
@@ -148,4 +160,27 @@ export const getLessonAndInstructorDetails = async (
   });
 
   return { lessons: convertedLesson, instructor };
+};
+
+export const getCourses = async (firestoreQuery: FirestoreQuery) => {
+  try {
+    const response = await fetch(`${process.env.API_URL}:runQuery`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(firestoreQuery),
+      cache: 'no-cache',
+    });
+    const data: DocumentResponse[] = await response.json();
+    const convertedCourses = data[0].document
+      ? data.map((doc) => {
+          return CourseConverter.convertCourseListing(doc.document);
+        })
+      : [];
+
+    return convertedCourses;
+  } catch (error) {
+    return [];
+  }
 };

@@ -2,16 +2,18 @@ import dynamic from 'next/dynamic';
 
 // Utils
 import {
+  createQuery,
   getCategoryById,
   getCategoryOptions,
   getCourseListing,
+  getCountCourseListing,
 } from '@/app/lib/utils';
 
 // Interfaces
 import { Course, CourseBase, SearchParams } from '@/app/lib/interfaces';
 
 // Constants
-import { COURSES_PER_PAGE } from '@/app/lib/constants';
+import { COURSES_PER_PAGE, LIMIT, OFFSET_DEFAULT } from '@/app/lib/constants';
 
 // Components
 const MyCourse = dynamic(() => import('@/app/ui/course/MyCourse'));
@@ -37,14 +39,23 @@ const Courses = async ({
     filterValue = '',
   } = searchParams;
 
-  const { data, count } = await getCourseListing({
+  const count = await getCountCourseListing({
     orderField,
     direction,
     startAfterValue,
     endBeforeValue,
     filter: { value: filterValue, field: filterField },
   });
+  const query = createQuery(
+    filterField,
+    filterValue,
+    orderField,
+    direction,
+    OFFSET_DEFAULT,
+    LIMIT
+  );
 
+  const data = await getCourseListing(query);
   const category = await getCategoryById(filterValue);
   const categoryOptions = await getCategoryOptions();
 

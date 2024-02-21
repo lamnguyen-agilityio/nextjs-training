@@ -8,3 +8,4 @@ export * from './api';
 export * from './route';
 export * from './link';
 export * from './entity';
+export * from './firestore';
