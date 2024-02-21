@@ -9,4 +9,5 @@ export interface SearchParams<T> {
   endBeforeValue?: string;
   filterField?: string;
   filterValue?: string;
+  offset?: number;
 }

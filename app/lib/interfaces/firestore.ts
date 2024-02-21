@@ -13,6 +13,7 @@ export interface Document {
 
 export interface DocumentResponse {
   document: Document;
+  skippedResults?: number;
 }
 
 export interface Documents {
