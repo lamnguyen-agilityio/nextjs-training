@@ -173,11 +173,12 @@ export const getCourses = async (firestoreQuery: FirestoreQuery) => {
       cache: 'no-cache',
     });
     const data: DocumentResponse[] = await response.json();
-    const convertedCourses = data[0].document
-      ? data.map((doc) => {
-          return CourseConverter.convertCourseListing(doc.document);
-        })
-      : [];
+    const convertedCourses =
+      data[0]?.document || data[0]?.skippedResults
+        ? (data[0]?.skippedResults ? data.slice(1) : data).map((course) => {
+            return CourseConverter.convertCourseListing(course.document);
+          })
+        : [];
 
     return convertedCourses;
   } catch (error) {

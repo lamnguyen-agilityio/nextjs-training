@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import clsx from 'clsx';
 
 // Components
@@ -10,41 +9,31 @@ import PageNumbers from './PageNumbers';
 // Constants
 import { MAX_PAGE_NUMBERS } from '@/app/lib/constants';
 
-interface PaginationProps<T> {
+interface PaginationProps {
   totalItems: number;
   itemsPerPage: number;
-  firstItem: T;
-  lastItem: T;
-  onPageChange: ({
-    firstItem,
-    lastItem,
-  }: {
-    firstItem?: T;
-    lastItem?: T;
-  }) => void;
+  currentPage: number;
   disabled?: boolean;
+  onPageChange: (newPage: number) => void;
 }
 
-const Pagination = <T,>({
+const Pagination = ({
   totalItems,
   itemsPerPage,
-  firstItem,
-  lastItem,
-  onPageChange,
+  currentPage,
   disabled = false,
-}: PaginationProps<T>) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+  onPageChange,
+}: PaginationProps) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startRecords = (currentPage - 1) * itemsPerPage + 1;
   const endRecords =
-    currentPage * itemsPerPage > totalItems
+    currentPage * itemsPerPage + 1 > totalItems
       ? totalItems
       : currentPage * itemsPerPage;
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      onPageChange(newPage);
     }
   };
 
@@ -65,15 +54,13 @@ const Pagination = <T,>({
             buttonSize="small"
             onClick={() => {
               handlePageChange(currentPage - 1);
-              onPageChange({ firstItem });
             }}
             disabled={currentPage === 1 || disabled}
           >
             {'<'}
           </Button>
         </li>
-        {/* The pagination not support page */}
-        {/* <PageNumbers
+        <PageNumbers
           currentPage={currentPage}
           totalPages={totalPages}
           disabled={disabled}
@@ -82,7 +69,7 @@ const Pagination = <T,>({
         />
         {totalItems / itemsPerPage > MAX_PAGE_NUMBERS && (
           <li className="text-fill-dark-link">...</li>
-        )} */}
+        )}
         <li className={clsx({ 'pointer-events-none': disabled })}>
           <Button
             type="button"
@@ -90,7 +77,6 @@ const Pagination = <T,>({
             buttonSize="small"
             onClick={() => {
               handlePageChange(currentPage + 1);
-              onPageChange({ lastItem });
             }}
             disabled={currentPage === totalPages || disabled}
           >

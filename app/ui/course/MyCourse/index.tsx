@@ -20,20 +20,27 @@ interface Props {
   totalItems: number;
   itemsPerPage: number;
   defaultLabel: string;
-  defaultSort: SortColumn<CourseBase>;
+  offset: number;
+  filterValue: string;
+  limit: number;
   data: CourseBase[];
   categoryOptions: Option[];
+  defaultSort: SortColumn<CourseBase>;
 }
 
 const MyCourse = ({
   totalItems,
   itemsPerPage,
   defaultLabel,
-  defaultSort,
+  offset,
+  filterValue,
+  limit,
   data,
   categoryOptions,
+  defaultSort,
 }: Props) => {
   const [isGridView, setIsGridView] = useState(false);
+  const [currentPage, setCurrenPage] = useState(offset / limit + 1);
   const [category, setCategory] = useState<string | undefined>(defaultLabel);
 
   const pathname = usePathname();
@@ -45,31 +52,15 @@ const MyCourse = ({
     const params = new URLSearchParams(searchParams);
     params.set(SEARCH_KEY_PARAMS.ORDER_FIELD, value.key);
     params.set(SEARCH_KEY_PARAMS.DIRECTION, value.direction);
-    params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
-    params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
 
     router.push(`${pathname}?${params}`);
   };
 
-  const handleChangePage = ({
-    firstItem,
-    lastItem,
-  }: {
-    firstItem?: CourseBase;
-    lastItem?: CourseBase;
-  }) => {
+  const handleChangePage = (newPage: number) => {
     const params = new URLSearchParams(searchParams);
 
-    if (firstItem) {
-      params.set(SEARCH_KEY_PARAMS.END_BEFORE_VALUE, firstItem.name.text);
-      params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
-    }
-
-    if (lastItem) {
-      params.set(SEARCH_KEY_PARAMS.START_AFTER_VALUE, lastItem.name.text);
-      params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
-    }
-
+    setCurrenPage(newPage);
+    params.set(SEARCH_KEY_PARAMS.OFFSET, ((newPage - 1) * 10).toString());
     router.push(`${pathname}?${params}`);
   };
 
@@ -80,6 +71,7 @@ const MyCourse = ({
       : categoryOptions.find((category) => !category.value)?.label;
 
     setCategory(currentCategory);
+    setCurrenPage(1);
 
     if (value) {
       params.set(SEARCH_KEY_PARAMS.FILTER_FIELD, 'categoryId');
@@ -89,8 +81,7 @@ const MyCourse = ({
       params.delete(SEARCH_KEY_PARAMS.FILTER_VALUE);
     }
 
-    params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
-    params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
+    params.delete(SEARCH_KEY_PARAMS.OFFSET);
 
     router.push(`${pathname}?${params}`);
   };
@@ -98,6 +89,12 @@ const MyCourse = ({
   useEffect(() => {
     updateBreadcrumb([{ title: 'My Course', href: ROUTES.COURSE_LIST }]);
   }, [updateBreadcrumb]);
+
+  useEffect(() => {
+    if (filterValue) {
+      setCurrenPage(1);
+    }
+  }, [filterValue]);
 
   return (
     <div className="pr-10 flex flex-col gap-5 pb-5">
@@ -147,8 +144,7 @@ const MyCourse = ({
         <Pagination
           totalItems={totalItems}
           itemsPerPage={itemsPerPage}
-          firstItem={data[0]}
-          lastItem={data[data.length - 1]}
+          currentPage={currentPage}
           onPageChange={handleChangePage}
         />
       )}

@@ -42,10 +42,9 @@ export const COLUMNS: ColumnProps<CourseBase>[] = [
 export const SEARCH_KEY_PARAMS = {
   ORDER_FIELD: 'orderField',
   DIRECTION: 'direction',
-  START_AFTER_VALUE: 'startAfterValue',
-  END_BEFORE_VALUE: 'endBeforeValue',
   FILTER_FIELD: 'filterField',
   FILTER_VALUE: 'filterValue',
+  OFFSET: 'offset',
 };
 
 export const MAPPING_OPTION: Record<'value' | 'label', keyof Category> = {

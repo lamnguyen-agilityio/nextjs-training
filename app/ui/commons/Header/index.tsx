@@ -31,8 +31,7 @@ const Header = () => {
     params.set(SEARCH_KEY_PARAMS.FILTER_VALUE, value);
 
     // Remove params pagination
-    params.delete(SEARCH_KEY_PARAMS.START_AFTER_VALUE);
-    params.delete(SEARCH_KEY_PARAMS.END_BEFORE_VALUE);
+    params.delete(SEARCH_KEY_PARAMS.OFFSET);
 
     router.push(`${pathname}?${params}`);
   };

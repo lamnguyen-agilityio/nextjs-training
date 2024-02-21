@@ -22,10 +22,9 @@ const Courses = async ({
   searchParams = {
     orderField: 'name',
     direction: 'desc',
-    startAfterValue: '',
-    endBeforeValue: '',
     filterField: '',
     filterValue: '',
+    offset: OFFSET_DEFAULT,
   },
 }: {
   searchParams?: SearchParams<Course>;
@@ -33,17 +32,14 @@ const Courses = async ({
   const {
     orderField = 'name',
     direction = 'desc',
-    startAfterValue,
-    endBeforeValue,
     filterField = '',
     filterValue = '',
+    offset = OFFSET_DEFAULT,
   } = searchParams;
 
   const count = await getCountCourseListing({
     orderField,
     direction,
-    startAfterValue,
-    endBeforeValue,
     filter: { value: filterValue, field: filterField },
   });
   const query = createQuery(
@@ -51,7 +47,7 @@ const Courses = async ({
     filterValue,
     orderField,
     direction,
-    OFFSET_DEFAULT,
+    offset,
     LIMIT
   );
 
@@ -71,6 +67,9 @@ const Courses = async ({
       itemsPerPage={COURSES_PER_PAGE}
       categoryOptions={categoryOptions}
       defaultLabel={defaultLabelCategory || ''}
+      offset={offset}
+      filterValue={filterValue}
+      limit={LIMIT}
     />
   );
 };
