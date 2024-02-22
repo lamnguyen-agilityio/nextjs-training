@@ -167,9 +167,22 @@ export const updateEntity = async <T extends Entity>(
 export const deleteEntity = async (
   collectionName: string,
   entityId: string
-): Promise<void> => {
-  const entityRef = doc(database, collectionName, entityId);
-  await deleteDoc(entityRef);
+): Promise<boolean> => {
+  const response = await fetch(
+    `${process.env.API_URL}/${collectionName}/${entityId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to delete data by id');
+  }
+
+  return true;
 };
 
 export const getData = async (resource: string): Promise<Documents> => {
@@ -181,7 +194,29 @@ export const getData = async (resource: string): Promise<Documents> => {
   });
 
   if (!response.ok) {
-    return {} as Documents;
+    throw new Error('Failed to get data');
+  }
+
+  return response.json();
+};
+
+export const getDataById = async (
+  collectionName: string,
+  id: string
+): Promise<Document | undefined> => {
+  const response = await fetch(
+    `${process.env.API_URL}/${collectionName}/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 3600 },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to get data by id');
   }
 
   return response.json();

@@ -10,8 +10,7 @@ export interface Course {
   logo: string;
 }
 
-export interface CourseDetail
-  extends Omit<Course, 'categoryId' | 'instructor'> {
+export interface CourseDetail extends Omit<Course, 'instructor'> {
   announcement: string;
   createdAt: Date;
   lessonId: string;

@@ -19,6 +19,7 @@ export class CourseConverter {
     const lessonId = fields.lessonId?.stringValue || '';
     const faq = this.extractFAQ(fields.faq?.arrayValue);
     const instructorId = fields.instructorId?.stringValue || '';
+    const categoryId = fields.categoryId?.stringValue || '';
 
     return {
       id,
@@ -32,6 +33,7 @@ export class CourseConverter {
       logo,
       lessonId,
       faq,
+      categoryId,
     };
   }
 
