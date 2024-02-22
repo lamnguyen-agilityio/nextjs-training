@@ -14,12 +14,15 @@ import {
   getInstructorById,
   getLessonById,
   updateEntity,
-} from '.';
+  CategoryConverter,
+  CourseConverter,
+  InstructorConverter,
+  getDataById,
+} from '@/app/lib/utils';
 
 // Interfaces
 import {
   Course,
-  CourseDetail,
   DocumentResponse,
   FirestoreQuery,
   Lesson,
@@ -30,7 +33,6 @@ import { ENTITY, ROUTES } from '@/app/lib/constants';
 
 // Mocks data
 import { courseDetail } from '@/mocks';
-import { CategoryConverter, CourseConverter, InstructorConverter } from '..';
 
 interface CourseParam extends Omit<EntitiesParams, 'collectionName'> {
   orderField: keyof Course;
@@ -103,9 +105,10 @@ export const getCourseListing = async (query: FirestoreQuery) => {
 };
 
 export const getCourseDetailById = async (id: string) => {
-  const course = getEntityById<CourseDetail>(ENTITY.COURSES, id);
+  const course = await getDataById(ENTITY.COURSES, id);
+  const convertedCourse = course && CourseConverter.convertCourseDetail(course);
 
-  return course;
+  return convertedCourse;
 };
 
 export const deleteCourse = async (id: string) => {
@@ -144,7 +147,7 @@ export const getLessonAndInstructorDetails = async (
     getInstructorById(instructorId),
   ]);
 
-  const convertedLesson = lessons?.map((lesson) => {
+  const convertedLesson = lessons?.data?.map((lesson) => {
     const { id, title, list } = lesson;
     let totalTime = 0;
 
@@ -152,13 +155,12 @@ export const getLessonAndInstructorDetails = async (
       id: id,
       title: title,
       list: list.map((itemList: Lesson) => {
-        totalTime += itemList.time;
+        totalTime += +itemList.time;
         return itemList;
       }),
       totalTime,
     };
   });
-
   return { lessons: convertedLesson, instructor };
 };
 

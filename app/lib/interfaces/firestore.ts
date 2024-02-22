@@ -2,8 +2,13 @@ export interface FieldValue {
   stringValue?: string;
   timestampValue?: Date;
   arrayValue?: {
-    values: Array<{ mapValue: { fields: Record<string, FieldValue> } }>;
+    values: Array<{
+      mapValue: { fields: Record<string, FieldValue> };
+      stringValue?: string;
+    }>;
   };
+  integerValue?: number;
+  booleanValue?: boolean;
 }
 
 export interface Document {

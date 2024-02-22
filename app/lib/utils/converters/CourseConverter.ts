@@ -62,7 +62,12 @@ export class CourseConverter {
     return overviewArrayValue.values.map((value) => ({
       type: (value.mapValue.fields.type.stringValue as 'single') || '',
       title: value.mapValue.fields.title.stringValue || '',
-      content: value.mapValue.fields.content.stringValue || '',
+      content:
+        value.mapValue.fields.content.stringValue ||
+        value.mapValue.fields.content.arrayValue?.values.map(
+          (item) => item.stringValue || ''
+        ) ||
+        '',
     }));
   }
 

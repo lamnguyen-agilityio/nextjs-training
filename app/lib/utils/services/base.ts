@@ -23,7 +23,7 @@ import {
 import { database } from '@/app/lib/firebase/config';
 
 // Interfaces
-import { Response, Entity, Documents } from '@/app/lib/interfaces';
+import { Response, Entity, Documents, Document } from '@/app/lib/interfaces';
 
 export interface EntitiesParams {
   collectionName: string;
@@ -182,6 +182,27 @@ export const getData = async (resource: string): Promise<Documents> => {
 
   if (!response.ok) {
     return {} as Documents;
+  }
+
+  return response.json();
+};
+
+export const getDataById = async (
+  collectionName: string,
+  id: string
+): Promise<Document> => {
+  const response = await fetch(
+    `${process.env.API_URL}/${collectionName}/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to get data by id');
   }
 
   return response.json();

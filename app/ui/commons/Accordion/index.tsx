@@ -14,7 +14,7 @@ interface Props {
 }
 
 const convertSectionsToJSX = (sections: Section[]) => {
-  return sections.map((section) => {
+  return sections.map((section, index) => {
     const sectionTitle = (
       <div className="text-sm font-medium text-fill-text-dark">
         {section.title}
@@ -28,6 +28,7 @@ const convertSectionsToJSX = (sections: Section[]) => {
     return {
       title: sectionTitle,
       content: sectionContent,
+      id: index,
     };
   });
 };
@@ -48,7 +49,7 @@ const Accordion = ({ type = 'primary', sections, onSetActive }: Props) => {
 
         return (
           <div
-            key={section.title.toString()}
+            key={section.id}
             className={`${type === 'primary' ? 'border-b' : 'mb-3 bg-background'}`}
           >
             <div

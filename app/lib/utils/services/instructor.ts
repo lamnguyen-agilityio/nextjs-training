@@ -1,5 +1,5 @@
 // Utils
-import { getEntities, getEntityById } from '.';
+import { getDataById, getEntities, InstructorConverter } from '@/app/lib/utils';
 
 // Interfaces
 import { Instructor } from '@/app/lib/interfaces';
@@ -24,5 +24,9 @@ export const getInstructorOptions = async () => {
 };
 
 export const getInstructorById = async (id: string) => {
-  return await getEntityById<Instructor>(ENTITY.INSTRUCTORS, id);
+  const instructor = await getDataById(ENTITY.INSTRUCTORS, id);
+  const convertedInstructor =
+    instructor && InstructorConverter.convertDocumentToInstructor(instructor);
+
+  return convertedInstructor;
 };
