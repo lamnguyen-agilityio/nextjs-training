@@ -4,7 +4,6 @@ import {
   addDoc,
   updateDoc,
   doc,
-  deleteDoc,
   UpdateData,
   getCountFromServer,
   getDoc,
@@ -195,28 +194,6 @@ export const getData = async (resource: string): Promise<Documents> => {
 
   if (!response.ok) {
     throw new Error('Failed to get data');
-  }
-
-  return response.json();
-};
-
-export const getDataById = async (
-  collectionName: string,
-  id: string
-): Promise<Document | undefined> => {
-  const response = await fetch(
-    `${process.env.API_URL}/${collectionName}/${id}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { revalidate: 3600 },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to get data by id');
   }
 
   return response.json();

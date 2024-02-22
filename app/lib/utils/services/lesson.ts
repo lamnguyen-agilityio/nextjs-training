@@ -1,5 +1,8 @@
 // Utils
-import { getDataById, LessonConverter } from '@/app/lib/utils';
+import { convertModel, getDataById } from '@/app/lib/utils';
+
+// Interfaces
+import { LessonResponse } from '@/app/lib/interfaces';
 
 // Constants
 import { ENTITY } from '@/app/lib/constants';
@@ -7,7 +10,7 @@ import { ENTITY } from '@/app/lib/constants';
 export const getLessonById = async (id: string) => {
   const lesson = await getDataById(ENTITY.LESSONS, id);
   const convertedLesson =
-    lesson && LessonConverter.convertDocumentToLesson(lesson);
+    lesson && convertModel<LessonResponse>(lesson as LessonResponse);
 
   return convertedLesson;
 };

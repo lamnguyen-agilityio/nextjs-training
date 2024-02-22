@@ -1,14 +1,13 @@
+// Enums
+import { ValueTypes } from '@/app/lib/enums';
+
 export interface FieldValue {
-  stringValue?: string;
-  timestampValue?: Date;
-  arrayValue?: {
-    values: Array<{
-      mapValue: { fields: Record<string, FieldValue> };
-      stringValue?: string;
-    }>;
-  };
-  integerValue?: number;
-  booleanValue?: boolean;
+  [ValueTypes.StringValue]?: string;
+  [ValueTypes.TimestampValue]?: string;
+  [ValueTypes.IntegerValue]?: string;
+  [ValueTypes.BooleanValue]?: boolean;
+  [ValueTypes.ArrayValue]?: { values: FieldValue[] };
+  [ValueTypes.MapValue]?: { fields: Record<string, FieldValue> };
 }
 
 export interface Document {
@@ -48,4 +47,8 @@ export interface FirestoreQuery {
     offset: number;
     limit: number;
   };
+}
+
+export interface ConvertedDocument {
+  [key: string]: ConvertedDocument | string | number | boolean | null;
 }

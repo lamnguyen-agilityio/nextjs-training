@@ -1,4 +1,4 @@
-import { Link, Section } from '.';
+import { FieldValue, Link, Section } from '.';
 
 export interface Course {
   id: string;
@@ -17,6 +17,7 @@ export interface CourseDetail extends Omit<Course, 'instructor'> {
   faq: Section[];
   src: string;
   overview: CourseOverview[];
+  fields: Record<string, FieldValue>;
 }
 
 export interface CourseBase
@@ -49,4 +50,6 @@ export interface LessonResponse {
   id: string;
   data?: CourseLesson[];
   courseId?: string;
+  fields: Record<string, FieldValue>;
+  name: string;
 }
