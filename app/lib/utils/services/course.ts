@@ -9,16 +9,12 @@ import {
   addEntity,
   deleteEntity,
   getData,
-  getDataById,
   getEntities,
-  getEntityById,
   getInstructorById,
   getLessonById,
   updateEntity,
-  CategoryConverter,
-  CourseConverter,
-  InstructorConverter,
   getDataById,
+  convertModel,
 } from '@/app/lib/utils';
 
 // Interfaces
@@ -27,7 +23,9 @@ import {
   DocumentResponse,
   FirestoreQuery,
   Lesson,
-  Document,
+  Category,
+  Instructor,
+  CourseDetail,
 } from '@/app/lib/interfaces';
 
 // Constants
@@ -70,10 +68,10 @@ export const getCourseListing = async (query: FirestoreQuery) => {
     getData(ENTITY.INSTRUCTORS),
   ]);
   const convertedCategories = categories.documents.map((doc) =>
-    CategoryConverter.convertDocumentToCategory(doc)
+    convertModel<Category>(doc as Category)
   );
   const convertedInstructors = instructors.documents.map((doc) =>
-    InstructorConverter.convertDocumentToInstructor(doc)
+    convertModel<Instructor>(doc as Instructor)
   );
 
   const courseListing = courses.map((course) => {
@@ -106,13 +104,6 @@ export const getCourseListing = async (query: FirestoreQuery) => {
   return courseListing;
 };
 
-export const getCourseDetailById = async (id: string) => {
-  const course = await getDataById(ENTITY.COURSES, id);
-  const convertedCourse = course && CourseConverter.convertCourseDetail(course);
-
-  return convertedCourse;
-};
-
 export const deleteCourse = async (id: string) => {
   const response = await deleteEntity(ENTITY.COURSES, id);
 
@@ -121,7 +112,8 @@ export const deleteCourse = async (id: string) => {
 
 export const getCourseById = async (id: string) => {
   const course = await getDataById(ENTITY.COURSES, id);
-  const convertedCourse = course && CourseConverter.convertCourseDetail(course);
+  const convertedCourse =
+    course && convertModel<CourseDetail>(course as CourseDetail);
 
   return convertedCourse;
 };
@@ -185,7 +177,7 @@ export const getCourses = async (firestoreQuery: FirestoreQuery) => {
     const convertedCourses =
       data[0]?.document || data[0]?.skippedResults
         ? (data[0]?.skippedResults ? data.slice(1) : data).map((course) => {
-            return CourseConverter.convertCourseListing(course.document);
+            return convertModel<CourseDetail>(course.document as CourseDetail);
           })
         : [];
 
