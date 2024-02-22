@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 // Interfaces
-import { Course, Option } from '@/app/lib/interfaces';
+import { Course, CourseDetail, Option } from '@/app/lib/interfaces';
 
 // Components
 import { Button } from '@/app/ui/commons';
@@ -14,7 +14,7 @@ import { addCourse, editCourseById } from '@/app/lib/utils';
 
 interface Props {
   id?: string;
-  course?: Course;
+  course?: CourseDetail;
   categories: Option[];
   instructors: Option[];
 }

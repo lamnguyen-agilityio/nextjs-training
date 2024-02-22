@@ -9,6 +9,7 @@ import {
   addEntity,
   deleteEntity,
   getData,
+  getDataById,
   getEntities,
   getEntityById,
   getInstructorById,
@@ -23,6 +24,7 @@ import {
   DocumentResponse,
   FirestoreQuery,
   Lesson,
+  Document,
 } from '@/app/lib/interfaces';
 
 // Constants
@@ -109,13 +111,16 @@ export const getCourseDetailById = async (id: string) => {
 };
 
 export const deleteCourse = async (id: string) => {
-  await deleteEntity(ENTITY.COURSES, id);
+  const response = await deleteEntity(ENTITY.COURSES, id);
 
-  revalidatePath(ROUTES.COURSE_LIST);
+  response && revalidatePath(ROUTES.COURSE_LIST);
 };
 
 export const getCourseById = async (id: string) => {
-  return await getEntityById<Course>(ENTITY.COURSES, id);
+  const course = await getDataById(ENTITY.COURSES, id);
+  const convertedCourse = course && CourseConverter.convertCourseDetail(course);
+
+  return convertedCourse;
 };
 
 export const addCourse = async (data: Course) => {
@@ -132,6 +137,8 @@ export const editCourseById = async (id: string, data: Course) => {
   await updateEntity(ENTITY.COURSES, id, data);
 
   revalidatePath(ROUTES.COURSE_LIST);
+  revalidatePath(`${ROUTES.COURSE_LIST}/${id}`);
+  revalidatePath(`${ROUTES.COURSE_LIST}/${id}/edit`);
   redirect(ROUTES.COURSE_LIST);
 };
 
@@ -170,7 +177,7 @@ export const getCourses = async (firestoreQuery: FirestoreQuery) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(firestoreQuery),
-      cache: 'no-cache',
+      next: { revalidate: 3600 },
     });
     const data: DocumentResponse[] = await response.json();
     const convertedCourses =
