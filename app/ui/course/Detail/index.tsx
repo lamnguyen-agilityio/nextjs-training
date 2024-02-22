@@ -15,7 +15,7 @@ import {
 import { CourseDetail, CourseLesson, Instructor } from '@/app/lib/interfaces';
 
 // Utils
-import { convertTimestampToDate, getRelativeTime } from '@/app/lib/utils';
+import { getRelativeTime } from '@/app/lib/utils';
 
 // Contexts
 import { useBreadcrumb } from '@/app/lib/contexts/breadcrumb';
@@ -32,15 +32,7 @@ interface Props {
 const Detail = ({ lessons, course, instructor }: Props) => {
   const { updateBreadcrumb } = useBreadcrumb();
 
-  const time =
-    (course &&
-      getRelativeTime(
-        convertTimestampToDate(
-          course.createdAt.seconds,
-          course.createdAt.nanoseconds
-        )
-      )) ||
-    '';
+  const time = (course && getRelativeTime(new Date(course.createdAt))) || '';
   const tabs = course &&
     instructor && [
       {

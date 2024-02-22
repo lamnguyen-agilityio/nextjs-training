@@ -18,17 +18,13 @@ const Page = async ({ params }: { params: { id: string } }) => {
     return notFound();
   }
 
-  const courseDetail = await getLessonAndInstructorDetails(
+  const { instructor, lessons } = await getLessonAndInstructorDetails(
     course.lessonId,
     course.instructorId
   );
 
   return (
-    <CourseDetail
-      course={course}
-      instructor={courseDetail?.instructor}
-      lessons={courseDetail?.lessons}
-    />
+    <CourseDetail course={course} instructor={instructor} lessons={lessons} />
   );
 };
 
