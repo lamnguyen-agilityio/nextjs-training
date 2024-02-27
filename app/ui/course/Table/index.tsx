@@ -8,16 +8,10 @@ interface Props {
   columns: ColumnProps<CourseBase>[];
   data: CourseBase[];
   defaultSort?: SortColumn<CourseBase>;
-  onSort: (value: SortColumn<CourseBase>) => void;
 }
 
-const CourseTable = ({ columns, data, defaultSort, onSort }: Props) => (
-  <Table
-    columns={columns}
-    data={data}
-    defaultSort={defaultSort}
-    onSort={onSort}
-  />
+const CourseTable = async ({ columns, defaultSort, data }: Props) => (
+  <Table columns={columns} defaultSort={defaultSort} data={data} />
 );
 
 export default CourseTable;

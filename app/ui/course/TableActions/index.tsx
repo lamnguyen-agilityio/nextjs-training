@@ -11,30 +11,35 @@ import { CardViewIcon, FilterIcon, ListViewIcon } from '@/app/ui/icons';
 // Interfaces
 import { Option } from '@/app/lib/interfaces';
 
+// Enums
+import { View } from '@/app/lib/enums';
+
 // Constants
 import { ROUTES } from '@/app/lib/constants';
 
 interface Props {
-  isGridView: boolean;
   categoryOptions: Option[];
   defaultLabel: string;
-  onToggleView: (isGridView: boolean) => void;
+  view: View;
   onFilterByCategory: (value: string) => void;
+  onSetView: (newView: View) => void;
 }
 
 const TableActions = ({
-  isGridView = false,
   categoryOptions,
   defaultLabel,
-  onToggleView,
+  view,
   onFilterByCategory,
+  onSetView,
 }: Props) => {
+  const isListingView = view === View.Listing;
+
   const handleSortByCategory = (value: string) => {
     onFilterByCategory(value);
   };
 
-  const toggleView = () => {
-    onToggleView(!isGridView);
+  const toggleView = (newView: View) => {
+    onSetView(newView);
   };
 
   return (
@@ -56,17 +61,17 @@ const TableActions = ({
       <div className="flex">
         <Button
           type="button"
-          onClick={toggleView}
-          variant={isGridView ? 'primary' : 'secondary'}
-          className={`${!isGridView && 'pointer-events-none'}`}
+          onClick={() => toggleView(View.Listing)}
+          variant={isListingView ? 'secondary' : 'primary'}
+          className={`${isListingView && 'pointer-events-none'}`}
         >
           <ListViewIcon />
         </Button>
         <Button
           type="button"
-          onClick={toggleView}
-          variant={isGridView ? 'secondary' : 'primary'}
-          className={`${isGridView && 'pointer-events-none'}`}
+          onClick={() => toggleView(View.Grid)}
+          variant={isListingView ? 'primary' : 'secondary'}
+          className={`${!isListingView && 'pointer-events-none'}`}
         >
           <CardViewIcon />
         </Button>
