@@ -1,5 +1,3 @@
-'use client';
-
 // Components
 import TableHeaders from './TableHeaders';
 import TableRows from './TableRows';
@@ -8,20 +6,18 @@ import TableRows from './TableRows';
 import { Entity, SortColumn, ColumnProps } from '@/app/lib/interfaces';
 
 type Props<T extends Entity> = {
-  columns: Array<ColumnProps<T>>;
   data: T[];
+  columns: Array<ColumnProps<T>>;
   defaultSort?: SortColumn<T>;
-  onSort: (value: SortColumn<T>) => void;
 };
 
-const Table = <T extends Entity>({
+const Table = async <T extends Entity>({
   data,
   columns,
   defaultSort,
-  onSort,
 }: Props<T>) => (
-  <table className={`w-full ${data.length && 'table-fixed'}`}>
-    <TableHeaders columns={columns} defaultSort={defaultSort} onSort={onSort} />
+  <table className="w-full table-fixed">
+    <TableHeaders columns={columns} defaultSort={defaultSort} />
     <TableRows columns={columns} data={data} />
   </table>
 );
