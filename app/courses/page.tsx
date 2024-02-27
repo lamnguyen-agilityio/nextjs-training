@@ -23,6 +23,7 @@ import {
 
 // Components
 import { CardList, CourseTable } from '@/app/ui/course';
+import { CardListSkeleton, TableCourseSkeleton } from '@/app/ui/skeletons';
 
 const MyCourse = dynamic(() => import('@/app/ui/course/MyCourse'));
 
@@ -58,7 +59,7 @@ const Courses = async ({
     offset,
     LIMIT
   );
-  const key = `${filterField}-${filterValue}-${orderField}-${direction}-${offset}`;
+  const key = orderField + direction + filterField + filterValue + offset;
 
   const data = await getCourseListing(query);
   const category = await getCategoryById(filterValue);
@@ -78,16 +79,24 @@ const Courses = async ({
       categoryOptions={categoryOptions}
       filterValue={filterValue}
       CourseTable={
-        <CourseTable
-          columns={COLUMNS}
-          defaultSort={{ key: orderField as keyof CourseBase, direction }}
-          query={query}
-          keySuspense={key}
-          data={data}
-        />
+        <Suspense
+          key={key}
+          fallback={
+            <TableCourseSkeleton dataLength={data.length} columns={COLUMNS} />
+          }
+        >
+          <CourseTable
+            columns={COLUMNS}
+            defaultSort={{ key: orderField as keyof CourseBase, direction }}
+            data={data}
+          />
+        </Suspense>
       }
       CardList={
-        <Suspense key={key} fallback={<p>loading...</p>}>
+        <Suspense
+          key={key}
+          fallback={<CardListSkeleton dataLength={data.length} />}
+        >
           <CardList data={data} />
         </Suspense>
       }
