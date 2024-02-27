@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 // Components
-import { Button, Popover } from '@/app/ui/commons';
+import { Popover } from '@/app/ui/commons';
 
 // Utils
 import { deleteCourse } from '@/app/lib/utils';
@@ -9,34 +9,33 @@ import { deleteCourse } from '@/app/lib/utils';
 // Icons
 import { DotsIcon } from '@/app/ui/icons';
 
+// Constants
+import { ROUTES } from '@/app/lib/constants';
+
 interface Props {
   id: string;
 }
 
 const GroupActions = ({ id }: Props) => {
-  const handleDeleteCourse = async () => {
-    if (confirm('Delete this course?')) {
-      await deleteCourse(id);
-    }
-  };
+  const deleteCourseWithId = deleteCourse.bind(null, id);
 
   return (
     <Popover
       trigger={<DotsIcon className="cursor-pointer" />}
       content={
-        <div className="flex flex-col bg-background text-background overflow-hidden rounded-md">
-          <Link className="p-2 bg-fill-info" href={`/courses/${id}/edit`}>
+        <div className="flex flex-col bg-background text-background overflow-hidden">
+          <Link
+            className="ml-[1px] mr-[1px] p-2 bg-fill-info rounded-none"
+            href={`${ROUTES.COURSE_LIST}/${id}/edit`}
+          >
             Edit
           </Link>
-          <Button
-            type="submit"
-            variant="error"
-            buttonSize="auto"
-            className="p-2 bg-fill-warning"
-            onClick={handleDeleteCourse}
+          <form
+            action={deleteCourseWithId}
+            className="rounded-none border p-2 bg-fill-warning"
           >
-            Delete
-          </Button>
+            <button>Delete</button>
+          </form>
         </div>
       }
     />
