@@ -26,6 +26,7 @@ import {
   Category,
   Instructor,
   CourseDetail,
+  CourseBase,
 } from '@/app/lib/interfaces';
 
 // Constants
@@ -61,7 +62,9 @@ export const getCountCourseListing = async ({
   return courses.count;
 };
 
-export const getCourseListing = async (query: FirestoreQuery) => {
+export const getCourseListing = async (
+  query: FirestoreQuery
+): Promise<CourseBase[]> => {
   const [courses, categories, instructors] = await Promise.all([
     getCourses(query),
     getData(ENTITY.CATEGORIES),
