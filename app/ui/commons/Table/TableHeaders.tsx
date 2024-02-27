@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Interfaces
 import { ColumnProps, SortColumn } from '@/app/lib/interfaces';
@@ -8,27 +9,32 @@ import { ColumnProps, SortColumn } from '@/app/lib/interfaces';
 // Icons
 import { SortIcon } from '@/app/ui/icons';
 
+// Constants
+import { SEARCH_KEY_PARAMS } from '@/app/lib/constants';
+
 type Props<T> = {
   columns: Array<ColumnProps<T>>;
   defaultSort?: SortColumn<T>;
-  onSort: (value: SortColumn<T>) => void;
 };
 
-const TableHeaders = <T,>({ columns, defaultSort, onSort }: Props<T>) => {
+const TableHeaders = <T,>({ columns, defaultSort }: Props<T>) => {
   const [sorting, setSorting] = useState<SortColumn<T> | null>(
     defaultSort || null
   );
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const handleSort = (key: keyof T) => {
-    if (sorting && sorting.key === key) {
-      const newDirection = sorting.direction === 'asc' ? 'desc' : 'asc';
+    const params = new URLSearchParams(searchParams);
+    const newDirection =
+      sorting && sorting.direction === 'asc' ? 'desc' : 'asc';
 
-      setSorting({ key, direction: newDirection });
-      onSort({ key, direction: newDirection });
-    } else {
-      setSorting({ key, direction: 'asc' });
-      onSort({ key, direction: 'asc' });
-    }
+    setSorting({ key, direction: newDirection });
+    params.set(SEARCH_KEY_PARAMS.ORDER_FIELD, key as string);
+    params.set(SEARCH_KEY_PARAMS.DIRECTION, newDirection);
+
+    router.push(`${pathname}?${params}`);
   };
 
   return (
@@ -38,7 +44,7 @@ const TableHeaders = <T,>({ columns, defaultSort, onSort }: Props<T>) => {
           <th
             key={column.key}
             scope="col"
-            className={`inline-block px-3 py-5 font-medium capitalize ${column.sortable && 'cursor-pointer'}`}
+            className={`px-3 py-5 font-medium capitalize ${column.sortable && 'cursor-pointer'}`}
             style={{
               width: `${column.width}%`,
             }}

@@ -12,7 +12,10 @@ type Props<T> = {
   data?: T[];
 };
 
-const TableRows = <T extends Entity>({ columns, data = [] }: Props<T>) => {
+const TableRows = async <T extends Entity>({
+  columns,
+  data = [],
+}: Props<T>) => {
   const rows = !data.length ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-3">
@@ -30,7 +33,7 @@ const TableRows = <T extends Entity>({ columns, data = [] }: Props<T>) => {
             return (
               <td
                 key={column.key}
-                className="inline-block box-border px-3 py-5"
+                className="box-border px-3 py-5"
                 style={{
                   width: `${column.width}%`,
                 }}
