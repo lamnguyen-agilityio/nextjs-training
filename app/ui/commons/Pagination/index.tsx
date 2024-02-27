@@ -24,8 +24,9 @@ const Pagination = ({
   disabled = false,
   onPageChange,
 }: PaginationProps) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startRecords = (currentPage - 1) * itemsPerPage + 1;
+  const hasItems = totalItems !== 0;
+  const totalPages = hasItems ? Math.ceil(totalItems / itemsPerPage) : 1;
+  const startRecords = hasItems ? (currentPage - 1) * itemsPerPage + 1 : 0;
   const endRecords =
     currentPage * itemsPerPage + 1 > totalItems
       ? totalItems

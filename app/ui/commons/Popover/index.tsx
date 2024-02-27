@@ -37,10 +37,7 @@ const Popover = ({ trigger, content }: Props) => {
       <div onClick={togglePopover}>{trigger}</div>
 
       {isPopoverVisible && (
-        <div
-          className="absolute z-10 right-0 border rounded shadow-lg"
-          onClick={() => setPopoverVisible(false)}
-        >
+        <div className="absolute z-10 right-0 border rounded shadow-lg">
           {content}
         </div>
       )}
