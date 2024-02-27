@@ -1,21 +1,29 @@
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
 // Utils
 import {
   createQuery,
   getCategoryById,
   getCategoryOptions,
-  getCourseListing,
   getCountCourseListing,
+  getCourseListing,
 } from '@/app/lib/utils';
 
 // Interfaces
 import { Course, CourseBase, SearchParams } from '@/app/lib/interfaces';
 
 // Constants
-import { COURSES_PER_PAGE, LIMIT, OFFSET_DEFAULT } from '@/app/lib/constants';
+import {
+  COLUMNS,
+  COURSES_PER_PAGE,
+  LIMIT,
+  OFFSET_DEFAULT,
+} from '@/app/lib/constants';
 
 // Components
+import { CardList, CourseTable } from '@/app/ui/course';
+
 const MyCourse = dynamic(() => import('@/app/ui/course/MyCourse'));
 
 const Courses = async ({
@@ -50,6 +58,7 @@ const Courses = async ({
     offset,
     LIMIT
   );
+  const key = `${filterField}-${filterValue}-${orderField}-${direction}-${offset}`;
 
   const data = await getCourseListing(query);
   const category = await getCategoryById(filterValue);
@@ -57,19 +66,31 @@ const Courses = async ({
 
   const defaultLabelCategory = category
     ? category.name
-    : categoryOptions.find((category) => !category.value)?.label;
+    : categoryOptions.find((category) => !category.value)?.label || '';
 
   return (
     <MyCourse
-      data={data}
       totalItems={count}
-      defaultSort={{ key: orderField as keyof CourseBase, direction }}
       itemsPerPage={COURSES_PER_PAGE}
-      categoryOptions={categoryOptions}
-      defaultLabel={defaultLabelCategory || ''}
       offset={offset}
-      filterValue={filterValue}
       limit={LIMIT}
+      defaultLabel={defaultLabelCategory}
+      categoryOptions={categoryOptions}
+      filterValue={filterValue}
+      CourseTable={
+        <CourseTable
+          columns={COLUMNS}
+          defaultSort={{ key: orderField as keyof CourseBase, direction }}
+          query={query}
+          keySuspense={key}
+          data={data}
+        />
+      }
+      CardList={
+        <Suspense key={key} fallback={<p>loading...</p>}>
+          <CardList data={data} />
+        </Suspense>
+      }
     />
   );
 };
