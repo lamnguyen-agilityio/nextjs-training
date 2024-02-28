@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 
 // Enums
-import { Cells } from '@/app/lib/enums';
+import { TableCells } from '@/app/lib/enums';
 
 export interface ColumnProps<T> {
   key: string;
   title: string | ReactElement;
   sortable?: boolean;
-  type: Cells;
+  type: TableCells;
   width?: number;
 }
 
