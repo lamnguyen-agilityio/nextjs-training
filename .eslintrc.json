@@ -16,6 +16,7 @@
     "eol-last": "error",
     "react/no-array-index-key": "error",
     "no-unused-vars": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "no-undef": "off"
   }
 }

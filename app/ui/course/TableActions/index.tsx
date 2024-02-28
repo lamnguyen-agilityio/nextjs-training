@@ -52,7 +52,7 @@ const TableActions = ({
           defaultLabel={defaultLabel}
         />
       )}
-      <Button type="button" disabled>
+      <Button type="button" aria-label="filter" disabled>
         <FilterIcon />
       </Button>
       <Link href={ROUTES.COURSE_CREATE}>
@@ -62,6 +62,7 @@ const TableActions = ({
         <Button
           type="button"
           onClick={() => toggleView(View.Listing)}
+          aria-label="listing"
           variant={isListingView ? 'secondary' : 'primary'}
           className={`${isListingView && 'pointer-events-none'}`}
         >
@@ -70,6 +71,7 @@ const TableActions = ({
         <Button
           type="button"
           onClick={() => toggleView(View.Grid)}
+          aria-label="grid"
           variant={isListingView ? 'primary' : 'secondary'}
           className={`${!isListingView && 'pointer-events-none'}`}
         >
