@@ -13,24 +13,28 @@ const AvatarWithName = ({ src, name, link }: Props) => {
       href={link}
       className="flex items-center gap-2 text-active-primary hover:underline"
     >
-      <Image
-        src={src}
-        alt="angular"
-        width={24}
-        height={24}
-        className="rounded-full w-6 h-6"
-      />
+      <div className="w-6 h-6 relative rounded-full overflow-hidden">
+        <Image
+          src={src}
+          alt="angular"
+          width={24}
+          height={24}
+          className="rounded-full w-auto h-auto"
+        />
+      </div>
       <span>{name}</span>
     </Link>
   ) : (
     <div className="flex items-center gap-2">
-      <Image
-        src={src}
-        alt="angular"
-        width={24}
-        height={24}
-        className="rounded-full w-6 h-6"
-      />
+      <div className="w-6 h-6 relative rounded-full overflow-hidden">
+        <Image
+          src={src}
+          alt="angular"
+          width={24}
+          height={24}
+          className="rounded-full w-auto h-auto"
+        />
+      </div>
       <span>{name}</span>
     </div>
   );
