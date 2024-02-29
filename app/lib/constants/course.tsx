@@ -1,11 +1,11 @@
 // Interfaces
-import { ColumnProps, CourseBase, Category } from '@/app/lib/interfaces';
+import { ColumnProps, Category } from '@/app/lib/interfaces';
 
 // Enums
 import { TableCells } from '@/app/lib/enums';
 
 export const COURSES_PER_PAGE = 10;
-export const COLUMNS: ColumnProps<CourseBase>[] = [
+export const COLUMNS: ColumnProps[] = [
   {
     key: 'name',
     title: 'course name',

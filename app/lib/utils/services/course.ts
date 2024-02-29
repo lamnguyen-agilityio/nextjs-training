@@ -50,7 +50,7 @@ export const getCountCourseListing = async ({
   endBeforeValue,
   filter,
 }: CourseParam) =>
-  await getCountEntities<Course>({
+  await getCountEntities({
     collectionName: ENTITY.COURSES,
     orderField,
     direction,

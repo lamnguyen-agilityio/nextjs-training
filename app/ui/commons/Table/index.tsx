@@ -7,7 +7,7 @@ import { Entity, SortColumn, ColumnProps } from '@/app/lib/interfaces';
 
 type Props<T extends Entity> = {
   data: T[];
-  columns: Array<ColumnProps<T>>;
+  columns: Array<ColumnProps>;
   defaultSort?: SortColumn<T>;
 };
 

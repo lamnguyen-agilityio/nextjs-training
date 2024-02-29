@@ -5,17 +5,14 @@ import TableRowSkeleton from './TableRow';
 import { SortIcon } from '@/app/ui/icons';
 
 // Interfaces
-import { Entity, ColumnProps } from '@/app/lib/interfaces';
+import { ColumnProps } from '@/app/lib/interfaces';
 
-type Props<T extends Entity> = {
+type Props = {
   dataLength: number;
-  columns: Array<ColumnProps<T>>;
+  columns: Array<ColumnProps>;
 };
 
-const TableCourse = async <T extends Entity>({
-  dataLength,
-  columns,
-}: Props<T>) => {
+const TableCourse = async ({ dataLength, columns }: Props) => {
   const array = Array.from({ length: dataLength }, (_, index) => index + 1);
   const rows = array.map((item) => <TableRowSkeleton key={item} />);
 

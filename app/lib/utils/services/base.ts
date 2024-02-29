@@ -1,6 +1,5 @@
 import {
   collection,
-  getDocs,
   addDoc,
   updateDoc,
   doc,
@@ -22,7 +21,7 @@ import {
 import { database } from '@/app/lib/firebase/config';
 
 // Interfaces
-import { Response, Entity, Documents, Document } from '@/app/lib/interfaces';
+import { Entity, Documents, Document } from '@/app/lib/interfaces';
 
 export interface EntitiesParams {
   collectionName: string;
@@ -49,7 +48,7 @@ type QueryCondition =
  * @param collectionName - The name of the Firebase collection.
  * @returns A Promise containing the total count.
  */
-export const getCountEntities = async <T extends Entity>(
+export const getCountEntities = async (
   params: EntitiesParams
 ): Promise<number> => {
   const {

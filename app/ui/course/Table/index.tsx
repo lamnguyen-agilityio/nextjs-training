@@ -5,7 +5,7 @@ import { ColumnProps, CourseBase, SortColumn } from '@/app/lib/interfaces';
 import { Table } from '@/app/ui/commons';
 
 interface Props {
-  columns: ColumnProps<CourseBase>[];
+  columns: ColumnProps[];
   data: CourseBase[];
   defaultSort?: SortColumn<CourseBase>;
 }

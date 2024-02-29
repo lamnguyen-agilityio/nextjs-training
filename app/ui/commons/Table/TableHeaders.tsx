@@ -13,7 +13,7 @@ import { SortIcon } from '@/app/ui/icons';
 import { SEARCH_KEY_PARAMS } from '@/app/lib/constants';
 
 type Props<T> = {
-  columns: Array<ColumnProps<T>>;
+  columns: Array<ColumnProps>;
   defaultSort?: SortColumn<T>;
 };
 
