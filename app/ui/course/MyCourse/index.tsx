@@ -3,7 +3,7 @@
 import { useState, ReactNode } from 'react';
 
 // Components
-import { Pagination, CourseHeader } from '@/app/ui/course';
+import { CoursePagination, CourseHeader } from '@/app/ui/course';
 
 // Interfaces
 import { Option } from '@/app/lib/interfaces';
@@ -45,7 +45,7 @@ const MyCourse = ({
         onSetView={(newView: View) => setCurrenView(newView)}
       />
       {currenView === View.Listing ? CourseTable : CardList}
-      <Pagination
+      <CoursePagination
         totalItems={totalItems}
         itemsPerPage={itemsPerPage}
         offset={offset}
