@@ -26,7 +26,7 @@ export const getCategoryById = async (id: string) => {
   }
 
   const category = await getDataById<Category>(ENTITY.CATEGORIES, id);
-  const convertedCategory = convertModel<Category>(category);
+  const convertedCategory = category && convertModel<Category>(category);
 
   return convertedCategory;
 };
