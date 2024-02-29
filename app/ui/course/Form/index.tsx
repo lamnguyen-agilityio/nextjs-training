@@ -95,7 +95,7 @@ const Form = ({ id, course, categories, instructors }: Props) => {
           <div className="relative">
             <select
               id="category"
-              className="peer block w-full cursor-pointer rounded-md border py-2 pl-4 content-section outline-2"
+              className="peer block w-full cursor-pointer rounded-md border py-2 pl-4 content-section outline-2 capitalize"
               defaultValue={course?.categoryId || ''}
               aria-describedby="category-error"
               {...register('categoryId', { required: true })}

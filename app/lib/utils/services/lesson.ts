@@ -8,9 +8,8 @@ import { LessonResponse } from '@/app/lib/interfaces';
 import { ENTITY } from '@/app/lib/constants';
 
 export const getLessonById = async (id: string) => {
-  const lesson = await getDataById(ENTITY.LESSONS, id);
-  const convertedLesson =
-    lesson && convertModel<LessonResponse>(lesson as LessonResponse);
+  const lesson = await getDataById<LessonResponse>(ENTITY.LESSONS, id);
+  const convertedLesson = lesson && convertModel<LessonResponse>(lesson);
 
   return convertedLesson;
 };

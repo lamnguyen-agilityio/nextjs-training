@@ -199,10 +199,10 @@ export const getData = async (resource: string): Promise<Documents> => {
   return response.json();
 };
 
-export const getDataById = async (
+export const getDataById = async <T>(
   collectionName: string,
   id: string
-): Promise<Document> => {
+): Promise<T & Document> => {
   const response = await fetch(
     `${process.env.API_URL}/${collectionName}/${id}`,
     {

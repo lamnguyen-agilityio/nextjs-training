@@ -32,17 +32,3 @@ export const getRelativeTime = (inputDate: Date): string => {
       return 'Just now';
   }
 };
-
-/**
- * Converts Timestamp (represented by seconds and nanoseconds) to a JavaScript Date object.
- *
- * @param seconds - The seconds part of the Timestamp.
- * @param nanoseconds - The nanoseconds part of the Timestamp.
- * @returns A JavaScript Date object representing the converted timestamp.
- */
-export const convertTimestampToDate = (
-  seconds: number,
-  nanoseconds: number
-) => {
-  return new Date(seconds * 1000 + nanoseconds / 1e6);
-};

@@ -114,9 +114,8 @@ export const deleteCourse = async (id: string) => {
 };
 
 export const getCourseById = async (id: string) => {
-  const course = await getDataById(ENTITY.COURSES, id);
-  const convertedCourse =
-    course && convertModel<CourseDetail>(course as CourseDetail);
+  const course = await getDataById<CourseDetail>(ENTITY.COURSES, id);
+  const convertedCourse = course && convertModel<CourseDetail>(course);
 
   return convertedCourse;
 };
