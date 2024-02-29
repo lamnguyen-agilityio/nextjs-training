@@ -54,7 +54,7 @@ const config: Config = {
             light: '#cbd5de',
           },
           background: '#f5f7fd',
-          link: '#a4adc8',
+          link: '#404a68',
         },
         'fill-dark': {
           primary: '#414dec',
