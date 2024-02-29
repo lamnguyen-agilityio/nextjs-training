@@ -1,5 +1,5 @@
 // Utils
-import { getEntities, getEntityById } from '.';
+import { getData, convertModel, getDataById } from '..';
 
 // Interfaces
 import { Category } from '@/app/lib/interfaces';
@@ -8,20 +8,25 @@ import { Category } from '@/app/lib/interfaces';
 import { ENTITY } from '@/app/lib/constants';
 
 export const getCategoryOptions = async () => {
-  const categories = await getEntities<Category>({
-    collectionName: ENTITY.CATEGORIES,
-  });
-
-  const categoryOptions =
-    categories.data &&
-    categories.data.map((item) => ({
-      ...item,
-      label: item.name,
-    }));
+  const categories = await getData(`${ENTITY.CATEGORIES}?orderBy=name%20desc`);
+  const convertedCategories = categories.documents.map((doc) =>
+    convertModel<Category>(doc as Category)
+  );
+  const categoryOptions = convertedCategories.map((item) => ({
+    ...item,
+    label: item.name,
+  }));
 
   return categoryOptions;
 };
 
 export const getCategoryById = async (id: string) => {
-  return await getEntityById<Category>(ENTITY.CATEGORIES, id);
+  if (!id) {
+    return undefined;
+  }
+
+  const category = await getDataById<Category>(ENTITY.CATEGORIES, id);
+  const convertedCategory = convertModel<Category>(category);
+
+  return convertedCategory;
 };
