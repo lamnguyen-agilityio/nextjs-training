@@ -1,5 +1,6 @@
 'use client';
 
+import { useTransition } from 'react';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -25,13 +26,16 @@ const Form = ({ id, course, categories, instructors }: Props) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<Course>();
+  const [isPending, startTransition] = useTransition();
 
-  const onSubmit: SubmitHandler<Course> = async (data) => {
-    if (id) {
-      return await editCourseById(id, data);
-    }
+  const onSubmit: SubmitHandler<Course> = (data) => {
+    startTransition(async () => {
+      if (id) {
+        return await editCourseById(id, data);
+      }
 
-    await addCourse(data);
+      await addCourse(data);
+    });
   };
 
   return (
@@ -195,7 +199,7 @@ const Form = ({ id, course, categories, instructors }: Props) => {
           type="submit"
           buttonSize="auto"
           className="capitalize"
-          disabled={!isValid}
+          disabled={!isValid || isPending}
         >
           {id ? 'edit course' : 'create course'}
         </Button>
