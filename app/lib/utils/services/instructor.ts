@@ -23,7 +23,8 @@ export const getInstructorOptions = async () => {
 
 export const getInstructorById = async (id: string) => {
   const instructor = await getDataById<Instructor>(ENTITY.INSTRUCTORS, id);
-  const convertedInstructor = convertModel<Instructor>(instructor);
+  const convertedInstructor =
+    instructor && convertModel<Instructor>(instructor);
 
   return convertedInstructor;
 };
