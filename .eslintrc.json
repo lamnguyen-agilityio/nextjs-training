@@ -1,4 +1,7 @@
 {
+  "env": {
+    "jest": true
+  },
   "extends": ["eslint:recommended", "plugin:react/recommended", "next/core-web-vitals"],
   "rules": {
     "react/jsx-filename-extension": [
@@ -15,7 +18,8 @@
     "no-multiple-empty-lines": "error",
     "eol-last": "error",
     "react/no-array-index-key": "error",
-    "no-unused-vars": "off",
-    "no-case-declarations": "off"
+    "no-unused-vars": "warn",
+    "no-case-declarations": "off",
+    "no-undef": "error"
   }
 }
