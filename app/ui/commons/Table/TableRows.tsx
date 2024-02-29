@@ -8,7 +8,7 @@ import { Entity, ColumnProps } from '@/app/lib/interfaces';
 import { TableCells } from '@/app/lib/enums';
 
 type Props<T> = {
-  columns: Array<ColumnProps<T>>;
+  columns: Array<ColumnProps>;
   data?: T[];
 };
 
