@@ -4,6 +4,9 @@ import { useState } from 'react';
 // Components
 import { Checkbox, Accordion } from '@/app/ui/commons';
 
+// Utils
+import { convertSeconds } from '@/app/lib/utils';
+
 // Icons
 import { MovieIcon } from '@/app/ui/icons';
 
@@ -28,7 +31,7 @@ const convertSectionsToJSX = (
           className={`flex items-center gap-2 text-xs ${index === indexActive ? 'text-background fill-background' : 'text-fill-text-main fill-active-secondary'}`}
         >
           <MovieIcon />
-          <span>{`${section.list.length} video | ${section.totalTime}s`}</span>
+          <span>{`${section.list.length} video | ${convertSeconds(section.totalTime)}`}</span>
         </div>
       </div>
     );
@@ -46,7 +49,7 @@ const convertSectionsToJSX = (
               {`${itemIndex + 1}. ${item.name}`}
               <p className="flex items-center gap-2 fill-active-secondary content-section">
                 <MovieIcon />
-                {`${item.totalVideo} video | ${item.time}s`}
+                {`${item.totalVideo} video | ${convertSeconds(item.time)}`}
               </p>
             </div>
           </div>

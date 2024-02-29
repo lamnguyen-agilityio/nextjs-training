@@ -32,3 +32,43 @@ export const getRelativeTime = (inputDate: Date): string => {
       return 'Just now';
   }
 };
+
+/**
+ * Converts Timestamp (represented by seconds and nanoseconds) to a JavaScript Date object.
+ *
+ * @param seconds - The seconds part of the Timestamp.
+ * @param nanoseconds - The nanoseconds part of the Timestamp.
+ * @returns A JavaScript Date object representing the converted timestamp.
+ */
+export const convertTimestampToDate = (
+  seconds: number,
+  nanoseconds: number
+) => {
+  return new Date(seconds * 1000 + nanoseconds / 1e6);
+};
+
+/**
+ * Converts a given number of seconds into a formatted string of hours and minutes.
+ * If the input is less than a minute, it returns the input as seconds.
+ * @param {number} seconds The number of seconds to convert.
+ * @returns {string} A formatted string representing the input seconds as hours and minutes.
+ */
+export const convertSeconds = (seconds: number): string => {
+  const secondsInHour = 3600;
+  const secondsInMinute = 60;
+
+  switch (true) {
+    case seconds >= secondsInHour:
+      const hours = Math.floor(seconds / secondsInHour);
+      const remainingMinutes = seconds % secondsInHour;
+      const minutes = Math.floor(remainingMinutes / secondsInMinute);
+
+      return `${hours} hours ${minutes} min`;
+    case seconds >= secondsInMinute:
+      const minutesOnly = Math.floor(seconds / secondsInMinute);
+
+      return `${minutesOnly} min`;
+    default:
+      return `${seconds} seconds`;
+  }
+};
