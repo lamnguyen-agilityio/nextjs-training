@@ -89,6 +89,7 @@ export default function NavLinks() {
             >
               <Link
                 href={link.href}
+                aria-label={link.name}
                 className={clsx(
                   'flex h-14 grow items-center justify-center gap-5 p-3 rounded-md',
                   'md:flex-none md:justify-start md:p-2 md:px-7',
