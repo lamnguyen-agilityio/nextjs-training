@@ -47,11 +47,11 @@ type QueryCondition =
 /**
  * Fetch all entities from a collection along with the total count.
  * @param collectionName - The name of the Firebase collection.
- * @returns A Promise containing an array of entities and the total count.
+ * @returns A Promise containing the total count.
  */
-export const getEntities = async <T extends Entity>(
+export const getCountEntities = async <T extends Entity>(
   params: EntitiesParams
-): Promise<Response<T>> => {
+): Promise<number> => {
   const {
     collectionName,
     limitData = 10,
@@ -81,24 +81,11 @@ export const getEntities = async <T extends Entity>(
 
   const baseCondition = collection(database, collectionName);
   const baseQuery = query(baseCondition, ...conditions);
-
-  const querySnapshot = await getDocs(baseQuery);
-
   const countSnapshot = await getCountFromServer(
     filter?.field && filter?.value ? baseQuery : baseCondition
   );
 
-  const count = countSnapshot.data().count;
-  const entities: T[] = [];
-
-  querySnapshot.forEach((doc) => {
-    entities.push({ id: doc.id, ...doc.data() } as T);
-  });
-
-  return {
-    data: entities,
-    count,
-  };
+  return countSnapshot.data().count;
 };
 
 /**

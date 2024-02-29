@@ -9,7 +9,7 @@ import {
   addEntity,
   deleteEntity,
   getData,
-  getEntities,
+  getCountEntities,
   getInstructorById,
   getLessonById,
   updateEntity,
@@ -49,8 +49,8 @@ export const getCountCourseListing = async ({
   startAfterValue,
   endBeforeValue,
   filter,
-}: CourseParam) => {
-  const courses = await getEntities<Course>({
+}: CourseParam) =>
+  await getCountEntities<Course>({
     collectionName: ENTITY.COURSES,
     orderField,
     direction,
@@ -58,9 +58,6 @@ export const getCountCourseListing = async ({
     endBeforeValue,
     filter,
   });
-
-  return courses.count;
-};
 
 export const getCourseListing = async (
   query: FirestoreQuery
