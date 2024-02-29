@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Button component */
+.btn--primary {
+  @apply bg-background fill-fill-text-light text-fill-text-light;
+}
+.btn--secondary {
+  @apply bg-active-primary fill-background text-background;
+}
+.btn--info {
+  @apply bg-background fill-fill-dark-link text-fill-dark-link;
+}
+.btn--success {
+  @apply bg-outline-info text-background;
+}
+.btn--warning {
+  @apply bg-active-info title-section rounded-lg px-4 hover:opacity-80;
+}
+.btn--small {
+  @apply w-8 h-8;
+}
+.btn--medium {
+  @apply w-10 h-10;
+}
+.btn--large {
+  @apply w-14 h-14;
+}
+.btn--auto {
+  @apply w-auto h-auto;
+}
+
+/* Checkbox component */
+.checkbox--base {
+  @apply form-checkbox cursor-pointer rounded-md h-5 w-5;
+}
+.checkbox--success {
+  @apply text-fill-dark-info;
+}
+
+/* Text */
+.title-section {
+  @apply text-sm font-medium text-fill-text-dark;
+}
+.content-section {
+  @apply text-xs text-fill-text-main;
+}
+
+/* Tooltip component */
+.tooltip {
+  @apply relative inline-block;
+}
+.tooltip-text {
+  @apply hidden w-max max-w-[500px] bg-fill-text-main text-background text-center rounded px-2 py-1 absolute z-10 
+  bottom-full left-1/2 transform -translate-x-1/2 opacity-0 transition-opacity duration-700;
+}
+.tooltip:hover .tooltip-text {
+  @apply block opacity-100;
+}
+
+/* Loading animation */
+.shimmer {
+  @apply before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] 
+  before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent
+}
