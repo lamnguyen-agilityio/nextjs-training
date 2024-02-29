@@ -188,7 +188,7 @@ export const getData = async (resource: string): Promise<Documents> => {
 export const getDataById = async <T>(
   collectionName: string,
   id: string
-): Promise<T & Document> => {
+): Promise<(T & Document) | undefined> => {
   const response = await fetch(
     `${process.env.API_URL}/${collectionName}/${id}`,
     {
@@ -200,7 +200,7 @@ export const getDataById = async <T>(
   );
 
   if (!response.ok) {
-    throw new Error('Failed to get data by id');
+    return undefined;
   }
 
   return response.json();
